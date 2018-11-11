@@ -1,0 +1,13 @@
+<template>
+    <div class="info">
+        <p class = 'file-info'>Resolution: {{ info.width }} x {{ info.height }}</p>
+        <p class = 'file-info'>Bitrate: {{ info.bitrate }}</p>
+        <p class = 'file-info'>Framerate: {{ info.framerate }}</p>
+    </div>
+</template>
+
+<script>
+    export default {
+        props: ['info']
+    }
+</script>

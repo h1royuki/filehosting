@@ -1,0 +1,9 @@
+/storage/*
+/storage/preview/*
+!/storage/preview/
+!/storage/preview/404.png
+/vendor/
+/logs/*
+var
+*.lock
+

@@ -64,7 +64,6 @@ class FileController
         $file = $this->fileHelper->saveFile($file);
         $this->searchRepository->indexFile($file);
 
-
         return $response->withJson(['id' => $file->getId()]);
     }
 

@@ -15,7 +15,6 @@ use Slim\Http\UploadedFile;
 
 class FileHelper
 {
-
     private $pathHelper;
     private $repository;
     private $previewHelper;
@@ -29,11 +28,10 @@ class FileHelper
 
     public function saveFile(File $file): File
     {
-
         $this->repository->beginTransaction();
         $file = $this->repository->addNewFile($file);
-        try {
 
+        try {
             $filePath = $this->pathHelper->getPathToFile($file);
 
             $file = $this->moveFile($file, $filePath);
@@ -44,13 +42,13 @@ class FileHelper
             return $file;
         } catch (Exception $e) {
             $this->repository->abortTransaction();
+
             throw new Exception($e->getMessage());
         }
     }
 
     public function createPreview(File $file, string $filePath): File
     {
-
         if ($file->getType() != File::IMAGE_TYPE) {
             return $file;
         }
@@ -108,7 +106,6 @@ class FileHelper
 
         return new Stream($fh);
     }
-
 
     public function getFileIfExist(int $id) :File
     {

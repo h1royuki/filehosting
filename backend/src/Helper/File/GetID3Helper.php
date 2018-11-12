@@ -86,7 +86,6 @@ class GetID3Helper
 
     private function getMD5Hash(array $getID3): string
     {
-
         return $getID3['md5_data'];
     }
 }

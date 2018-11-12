@@ -63,7 +63,6 @@ class PathHelper
         if (!$result) {
             throw new Exception('Error create directory');
         }
-
     }
 
     public function isDirectoryExist(string $path) : bool
@@ -71,15 +70,15 @@ class PathHelper
         return is_dir($path);
     }
 
-    private function getPathByFileDate(File $file): string {
-
+    private function getPathByFileDate(File $file): string
+    {
         $date = new DateTime($file->getDateUpload());
 
         return $date->format(self::PATH_FORMAT_FROM_DATE);
     }
 
-    private function getBasicFilePath(File $file) {
-
+    private function getBasicFilePath(File $file)
+    {
         return $file->getId().self::FILE_SEPARATOR.$file->getFilename();
     }
 

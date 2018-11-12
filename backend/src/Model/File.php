@@ -7,7 +7,6 @@ use Slim\Http\UploadedFile;
 
 class File implements JsonSerializable
 {
-
     const DATE_FORMAT = 'Y-m-d H:i:s';
 
     const AUDIO_TYPE = '1';

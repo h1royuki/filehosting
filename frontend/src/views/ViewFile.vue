@@ -92,21 +92,10 @@
             getFile() {
                 this.$http
                     .get('/file/' + this.file_id)
-                    .then(response => (this.response = response.data)).catch(error => {
-                    this.sendError(error.response.data.error)
-                });
+                    .then(response => (this.response = response.data));
             },
             downloadFile() {
                 window.location.href = this.download_url;
-            }
-        },
-        filters: {
-            bitsConvert: function (value) {
-                if (value > 1048576) {
-                    return Math.round(value / 1048576) + ' MB';
-                }
-                return Math.round(value / 1024) + ' KB';
-
             }
         }
     }

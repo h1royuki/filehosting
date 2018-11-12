@@ -14,7 +14,7 @@ import App from './views/App'
 import Index from './views/Index'
 import LastFiles from './views/LastFiles'
 import ViewFile from './views/ViewFile'
-import notFound from './views/Components/404'
+import Error from './views/Error'
 
 Vue.use(VueRouter);
 Vue.use(VueMoment);
@@ -24,7 +24,7 @@ const routes = [
     { path: '/', component: Index, name: 'home', meta: {title: 'Uppuru'} },
     { path: '/last/', component: LastFiles, name: 'last', meta: {title: 'Last files'} },
     { path: '/file/:id', component: ViewFile, name: 'view', meta: {title: 'View file'}  },
-    { path: '/404', component: notFound, name: '404', meta: {title: 'Page not found'}  }
+    { path: '/error', component: Error, name: 'error', meta: {title: 'Not found'}, props: true  },
 ];
 
 
@@ -45,6 +45,21 @@ Vue.prototype.$http = axios.create({
     baseURL: '/api'
 });
 
+Vue.prototype.$http.interceptors.response.use((response) => {
+    return response;
+}, (error) => {
+    let status = error.response.status;
+    let data = error.response.data;
+
+    if (status == 500 || status == 404) {
+        router.push({
+            name: 'error',
+            params: { error: data }
+        });
+    }
+    return error;
+});
+
 Vue.mixin({
     methods: {
         sendError(text) {
@@ -57,6 +72,14 @@ Vue.mixin({
         }
     }
 });
+
+Vue.filter('bitsConvert', function (value) {
+        if(value > 1048576) {
+            return Math.round(value / 1048576) + ' MBits';
+        }
+        return Math.round(value / 1024) + ' KBits';
+});
+
 
 new Vue({
     router,

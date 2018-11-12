@@ -10,18 +10,18 @@ use Slim\Http\Response;
 class ErrorHandler
 {
     private $logger;
-    private $notFoundMiddleware;
+    private $notFoundHandler;
 
-    public function __construct(Logger $logger, NotFoundHandler $notFoundMiddleware)
+    public function __construct(Logger $logger, NotFoundHandler $notFoundHandler)
     {
         $this->logger = $logger;
-        $this->notFoundMiddleware = $notFoundMiddleware;
+        $this->notFoundHandler = $notFoundHandler;
     }
 
     public function __invoke(Request $request, Response $response, \Exception $exception): Response
     {
         if ($exception instanceof FileNotFoundException) {
-            return ($this->notFoundMiddleware)($request, $response);
+            return ($this->notFoundHandler)($request, $response);
         }
 
         $this->logger->critical($exception->getMessage(), $exception->getTrace());

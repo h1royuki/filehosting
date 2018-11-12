@@ -123,13 +123,9 @@
                 };
 
                 this.$http.post('/upload', formData, config)
-                    .then( function (response) {
+                    .then((response) => {
                         redirectToFile(response.data);
-                    }).catch(error => {
-                    this.sendError(error.response.data.error);
-                    }
-
-                );
+                    });
             }
         }
     }

@@ -103,9 +103,6 @@
                     .get('/comments/' + this.file_id)
                     .then((response) => {
                         this.response = response.data;
-                    })
-                    .catch(error => {
-                        this.sendError(error.response.data.error);
                     });
             },
             sendComment() {
@@ -120,12 +117,9 @@
                         message: this.comment.message,
                         parent_id: this.comment.parent_id
                     })
-                    .then(response => {
+                    .then((response) => {
                         this.getComments();
                         this.clearForm();
-                    })
-                    .catch(error => {
-                        this.sendError(error.response.data.error);
                     });
             },
 

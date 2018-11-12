@@ -19,6 +19,6 @@ class NotFoundHandler
     {
         $this->logger->info('404', ['url' => $request->getUri()]);
 
-        return $response->withStatus(404)->withJson(['error' => 'Not found']);
+        return $response->withStatus(404)->withJson(['error' => 'Page not found']);
     }
 }

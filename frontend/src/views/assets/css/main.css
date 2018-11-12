@@ -456,6 +456,12 @@ a, a:hover {
     color: red;
 }
 
+.error {
+    width: 200px;
+    height: 200px;
+    padding: 20px;
+}
+
 .fade-enter-active, .fade-leave-active {
     transition: opacity .5s;
 }

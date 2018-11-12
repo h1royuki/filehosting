@@ -42,23 +42,10 @@
             "video-icon": VideoIcon,
             "image-icon": ImageIcon
         },
-
-        filters: {
-            bitsConvert: function(value) {
-                if(value > 1048576) {
-                    return Math.round(value / 1048576) + ' MBits';
-                }
-                return Math.round(value / 1024) + ' KBits';
-
-            }
-        },
-
         created() {
             this.$http
                 .get('/last')
-                .then(response => (this.response = response.data)).catch(error => {
-                this.sendError(error.response.data.error);
-            });
+                .then(response => (this.response = response.data));
         }
     }
 

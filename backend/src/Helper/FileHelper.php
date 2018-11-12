@@ -112,7 +112,7 @@ class FileHelper
         $file = $this->repository->getFileById($id);
 
         if (!$file) {
-            throw new FileNotFoundException();
+            throw new FileNotFoundException('File not found');
         }
 
         $path = $this->pathHelper->getPathToFile($file);

@@ -15,6 +15,7 @@ use Slim\Http\UploadedFile;
 
 class FileHelper
 {
+
     private $pathHelper;
     private $repository;
     private $previewHelper;
@@ -26,43 +27,44 @@ class FileHelper
         $this->pathHelper = $pathHelper;
     }
 
-    public function parseRequest(UploadedFile $uploaded, File $file) : File
-    {
-        $date = new DateTime();
-
-        return $file
-            ->setFile($uploaded)
-            ->setFilename($uploaded->getClientFilename())
-            ->setSize($uploaded->getSize())
-            ->setDateUpload($date->getTimestamp())
-            ->setDownloads(0)
-            ->setHash($this->generateHash());
-    }
-
     public function saveFile(File $file): File
     {
+
         $this->repository->beginTransaction();
-        $id = $this->repository->addNewFile($file);
-
+        $file = $this->repository->addNewFile($file);
         try {
-            $filePath = $this->pathHelper->generatePathToFile($file);
 
-            $this->moveFile($file, $filePath);
+            $filePath = $this->pathHelper->getPathToFile($file);
 
-            if ($file->getType() == FileTypeHelper::IMAGE_TYPE) {
-                $previewPath = $this->pathHelper->generatePathToPreview($file);
-                $this->previewHelper->generateThumbnail($filePath, $previewPath);
-            }
+            $file = $this->moveFile($file, $filePath);
+            $file = $this->createPreview($file, $filePath);
 
             $this->repository->commitTransaction();
-            $file->setId($id);
 
             return $file;
         } catch (Exception $e) {
             $this->repository->abortTransaction();
-
-            throw new Exception('Error saving file');
+            throw new Exception($e->getMessage());
         }
+    }
+
+    public function createPreview(File $file, string $filePath): File
+    {
+
+        if ($file->getType() != File::IMAGE_TYPE) {
+            return $file;
+        }
+
+        $directory = $this->pathHelper->getPathToPreviewDirectory($file);
+        $path = $this->pathHelper->getPathToPreview($file);
+
+        if (!$this->pathHelper->isDirectoryExist($directory)) {
+            $this->pathHelper->createDirectory($directory);
+        }
+
+        $this->previewHelper->generateThumbnail($filePath, $path);
+
+        return $file;
     }
 
     public function getFileType(File $file): File
@@ -74,16 +76,24 @@ class FileHelper
         return $file;
     }
 
-    public function moveFile(File $file, $path) : void
+    public function moveFile(File $file, $path) : File
     {
+        $directory = $this->pathHelper->getPathToFileDirectory($file);
+
+        if (!$this->pathHelper->isDirectoryExist($directory)) {
+            $this->pathHelper->createDirectory($directory);
+        }
+
         $file->getFile()->moveTo($path);
+
+        return $file;
     }
 
     public function getPreview(File $file) : string
     {
-        $path = $this->pathHelper->generatePathToPreview($file);
+        $path = $this->pathHelper->getPathToPreview($file);
 
-        if ($file->getType() != FileTypeHelper::IMAGE_TYPE || !file_exists($path)) {
+        if ($file->getType() != File::IMAGE_TYPE || !file_exists($path)) {
             $path = $this->pathHelper->getDefaultPreviewPath();
         }
 
@@ -92,17 +102,13 @@ class FileHelper
 
     public function getFileStream(File $file) : Stream
     {
-        $path = $this->pathHelper->generatePathToFile($file);
+        $path = $this->pathHelper->getPathToFile($file);
 
         $fh = fopen($path, 'rb');
 
         return new Stream($fh);
     }
 
-    private function generateHash()
-    {
-        return bin2hex(random_bytes(8));
-    }
 
     public function getFileIfExist(int $id) :File
     {
@@ -112,12 +118,24 @@ class FileHelper
             throw new FileNotFoundException();
         }
 
-        $path = $this->pathHelper->generatePathToFile($file);
+        $path = $this->pathHelper->getPathToFile($file);
 
         if (!file_exists($path)) {
             throw new Exception('File not available');
         }
 
         return $file;
+    }
+
+    public function parseRequest(UploadedFile $uploaded, File $file) : File
+    {
+        $date = new DateTime();
+
+        return $file
+            ->setFile($uploaded)
+            ->setFilename($uploaded->getClientFilename())
+            ->setSize($uploaded->getSize())
+            ->setDateUpload($date->format(File::DATE_FORMAT))
+            ->setDownloads(0);
     }
 }

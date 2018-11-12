@@ -2,11 +2,15 @@
 
 namespace FileHosting\Helper\File;
 
+use DateTime;
+use Exception;
 use FileHosting\Model\File;
 
 class PathHelper
 {
     const FILE_SEPARATOR = '_';
+    const PATH_FORMAT_FROM_DATE = 'Y-m-d';
+    const DEFAULT_FOLDER_PERMISSIONS = 0777;
 
     private $fileSettings;
     private $previewSettings;
@@ -17,40 +21,79 @@ class PathHelper
         $this->previewSettings = $previewSettings;
     }
 
-    public function generatePathToFile(File $file) : string
+    public function getPathToFile(File $file) : string
     {
-        return  $this->getFilePath().
+        return  $this->getPathToFileDirectory($file).
             DIRECTORY_SEPARATOR.
-            $file->getHash().
-            self::FILE_SEPARATOR.
-            $file->getFilename();
+            $this->getBasicFilePath($file);
     }
 
-    public function generatePathToPreview(File $file) : string
+    public function getPathToPreview(File $file) : string
     {
-        return  $this->getPreviewPath().
+        return  $this->getPathToPreviewDirectory($file).
             DIRECTORY_SEPARATOR.
-            $file->getHash().
-            self::FILE_SEPARATOR.
-            $file->getFilename();
+            $this->getBasicFilePath($file);
     }
 
     public function getDefaultPreviewPath()
     {
-        return $this->getPreviewPath().DIRECTORY_SEPARATOR.$this->getDefaultPreviewName();
+        return $this->getPreviewPathFromConfig().
+            DIRECTORY_SEPARATOR.
+            $this->getDefaultPreviewPathFromConfig();
     }
 
-    private function getFilePath() : string
+    public function getPathToFileDirectory(File $file) : string
+    {
+        return  $this->getFilePathFromConfig().
+            DIRECTORY_SEPARATOR.
+            $this->getPathByFileDate($file);
+    }
+
+    public function getPathToPreviewDirectory(File $file) : string
+    {
+        return  $this->getPreviewPathFromConfig().
+            DIRECTORY_SEPARATOR.
+            $this->getPathByFileDate($file);
+    }
+
+    public function createDirectory(string $path): void
+    {
+        $result = mkdir($path, self::DEFAULT_FOLDER_PERMISSIONS);
+
+        if (!$result) {
+            throw new Exception('Error create directory');
+        }
+
+    }
+
+    public function isDirectoryExist(string $path) : bool
+    {
+        return is_dir($path);
+    }
+
+    private function getPathByFileDate(File $file): string {
+
+        $date = new DateTime($file->getDateUpload());
+
+        return $date->format(self::PATH_FORMAT_FROM_DATE);
+    }
+
+    private function getBasicFilePath(File $file) {
+
+        return $file->getId().self::FILE_SEPARATOR.$file->getFilename();
+    }
+
+    private function getFilePathFromConfig() : string
     {
         return $this->fileSettings['path'];
     }
 
-    private function getPreviewPath() : string
+    private function getPreviewPathFromConfig() : string
     {
         return $this->previewSettings['path'];
     }
 
-    private function getDefaultPreviewName()
+    private function getDefaultPreviewPathFromConfig() : string
     {
         return $this->previewSettings['default'];
     }

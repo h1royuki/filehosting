@@ -29,22 +29,23 @@ class FileRepository
         $this->pdo->rollBack();
     }
 
-    public function addNewFile(File $file) : string
+    public function addNewFile(File $file) : File
     {
         $pdo = $this->pdo->prepare(
             'INSERT INTO files 
-            (filename, type, info, hash, size, downloads) 
-            VALUES (:filename, :type, :info, :hash, :size, :downloads)');
+            (filename, type, info, hash, size, date_upload, downloads) 
+            VALUES (:filename, :type, :info, :hash, :size, :date_upload, :downloads)');
 
         $pdo->bindValue(':filename', $file->getFilename());
         $pdo->bindValue(':type', $file->getType());
         $pdo->bindValue(':info', $file->getInfo());
         $pdo->bindValue(':hash', $file->getHash());
         $pdo->bindValue(':size', $file->getSize());
+        $pdo->bindValue(':date_upload', $file->getDateUpload());
         $pdo->bindValue(':downloads', $file->getDownloads());
         $pdo->execute();
 
-        return $this->pdo->lastInsertId();
+        return $file->setId($this->pdo->lastInsertId());
     }
 
     public function updateDownloads(File $file): bool

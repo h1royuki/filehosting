@@ -16,10 +16,10 @@ class PreviewHelper
         $this->settings = $settings;
     }
 
-    public function generateThumbnail(string $file, string $path): void
+    public function generateThumbnail(string $filePath, string $previewPath): void
     {
         try {
-            $image = new Imagick($file);
+            $image = new Imagick($filePath);
 
             if ($this->isGif($image)) {
                 $image = $this->generateFromGif($image);
@@ -27,7 +27,7 @@ class PreviewHelper
                 $image = $this->generateFromStaticImage($image);
             }
 
-            $image->writeImage($path);
+            $image->writeImage($previewPath);
         } catch (Exception $e) {
             throw new Exception('Error generating preview');
         }

@@ -31,6 +31,7 @@ class SiteController
 
         $file = $this->helper->getFileIfExist($id);
 
+
         return $response->withJson($file);
     }
 }

@@ -7,6 +7,14 @@ use Slim\Http\UploadedFile;
 
 class File implements JsonSerializable
 {
+
+    const DATE_FORMAT = 'Y-m-d H:i:s';
+
+    const AUDIO_TYPE = '1';
+    const VIDEO_TYPE = '2';
+    const IMAGE_TYPE = '3';
+    const OTHER_TYPE = '0';
+
     protected $id;
     protected $file;
     protected $filename;
@@ -80,21 +88,21 @@ class File implements JsonSerializable
         return $this->hash;
     }
 
-    public function setId($id): self
+    public function setId(int $id): self
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function setType($type): self
+    public function setType(int $type): self
     {
         $this->type = $type;
 
         return $this;
     }
 
-    public function setInfo($info): self
+    public function setInfo(array $info): self
     {
         $this->info = json_encode($info);
 
@@ -108,35 +116,35 @@ class File implements JsonSerializable
         return $this;
     }
 
-    public function setFile($file) : self
+    public function setFile(UploadedFile $file) : self
     {
         $this->file = $file;
 
         return $this;
     }
 
-    public function setFilename($filename) : self
+    public function setFilename(string $filename) : self
     {
         $this->filename = $filename;
 
         return $this;
     }
 
-    public function setHash($hash) : self
+    public function setHash(string $hash) : self
     {
         $this->hash = $hash;
 
         return $this;
     }
 
-    public function setSize($size) : self
+    public function setSize(string $size) : self
     {
         $this->size = $size;
 
         return $this;
     }
 
-    public function setDateUpload($date_upload) : self
+    public function setDateUpload(string $date_upload) : self
     {
         $this->date_upload = $date_upload;
 

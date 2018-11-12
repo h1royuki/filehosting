@@ -23,33 +23,36 @@ class GetID3Helper
     public function getFileInfo(File $file): File
     {
         $path = $file->getFile()->file;
+        $getid3 = $this->getID3->analyze($path);
 
-        if ($file->getType() == FileTypeHelper::AUDIO_TYPE) {
-            $file->setInfo($this->getAudioInfo($path));
+        $md5 = $this->getMD5Hash($getid3);
+
+        $file = $file->setHash($md5);
+
+        if ($file->getType() == File::AUDIO_TYPE) {
+            $file->setInfo($this->getAudioInfo($getid3));
         }
-        if ($file->getType() == FileTypeHelper::IMAGE_TYPE) {
-            $file->setInfo($this->getImageInfo($path));
+        if ($file->getType() == File::IMAGE_TYPE) {
+            $file->setInfo($this->getImageInfo($getid3));
         }
-        if ($file->getType() == FileTypeHelper::VIDEO_TYPE) {
-            $file->setInfo($this->getVideoInfo($path));
+        if ($file->getType() == File::VIDEO_TYPE) {
+            $file->setInfo($this->getVideoInfo($getid3));
         }
 
         return $file;
     }
 
-    private function getAudioInfo(string $path): array
+    private function getAudioInfo(array $getID3): array
     {
         $info = [];
 
-        $getid3 = $this->getID3->analyze($path);
-
-        foreach ($getid3['audio'] as $key => $value) {
+        foreach ($getID3['audio'] as $key => $value) {
             if (in_array($key, self::AUDIO_INFO)) {
                 $info[$key] = $value;
             }
         }
 
-        foreach ($getid3['tags']['id3v2'] as $key => $value) {
+        foreach ($getID3['tags']['id3v2'] as $key => $value) {
             if (in_array($key, self::AUDIO_TAGS)) {
                 $info[$key] = $value[0];
             }
@@ -58,30 +61,32 @@ class GetID3Helper
         return $info;
     }
 
-    private function getImageInfo(string  $path): array
+    private function getImageInfo(array $getID3): array
     {
         $info = [];
 
-        $getid3 = $this->getID3->analyze($path);
-
-        $info['width'] = $getid3['video']['resolution_x'];
-        $info['height'] = $getid3['video']['resolution_y'];
-        $info['format'] = $getid3['fileformat'];
+        $info['width'] = $getID3['video']['resolution_x'];
+        $info['height'] = $getID3['video']['resolution_y'];
+        $info['format'] = $getID3['fileformat'];
 
         return $info;
     }
 
-    private function getVideoInfo(string $path): array
+    private function getVideoInfo(array $getID3): array
     {
         $info = [];
 
-        $getid3 = $this->getID3->analyze($path);
-
-        $info['bitrate'] = $getid3['bitrate'];
-        $info['framerate'] = $getid3['video']['frame_rate'];
-        $info['width'] = $getid3['video']['resolution_x'];
-        $info['height'] = $getid3['video']['resolution_y'];
+        $info['bitrate'] = $getID3['bitrate'];
+        $info['framerate'] = $getID3['video']['frame_rate'];
+        $info['width'] = $getID3['video']['resolution_x'];
+        $info['height'] = $getID3['video']['resolution_y'];
 
         return $info;
+    }
+
+    private function getMD5Hash(array $getID3): string
+    {
+
+        return $getID3['md5_data'];
     }
 }

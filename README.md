@@ -35,7 +35,7 @@ Simple SPA anonymous filehosting.
 * Restart nginx `service nginx restart`
 * Configure `config/sphinx.conf` and run Sphinx `sudo searchd --config sphinx.conf --console`
 * Install backend dependencies `composer install`
-* Install frontend dependecies `npm install`
+* Install frontend dependencies `npm install`
 * Configure `/backend/config/settings.php`
 * Import `config/filehosting.sql` to MySQL database
 * Build frontend `npm run build`

@@ -9,7 +9,7 @@ return [
         'file' => [
             'path'         => __DIR__.'/../../storage',
             'max_size'     => '10485760',
-            'last_limit'   => '12'
+            'last_limit'   => '12',
         ],
 
         'preview' => [

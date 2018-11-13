@@ -81,20 +81,10 @@ img {
     top: 1px;
 }
 
-.icon {
-    font-size: 3rem;
-}
-
-.icon-large {
-    font-size: 4rem;
-}
-
 .upload-icon {
     font-size: 10rem;
     margin-bottom: 2rem;
 }
-
-
 
 .choose-file {
     height: 300px;
@@ -128,12 +118,6 @@ img {
     cursor: pointer
 }
 
-.cl-button {
-    background-color: transparent;
-    border: transparent;
-}
-
-
 .button {
     display: block;
     border: 1px;
@@ -141,43 +125,36 @@ img {
     border-radius: 6px;
     font-weight: 500;
     color: white;
-    width: 300px;
-    height: 50px;
     margin: 0 auto;
+    padding: 12px 10px;
     background-color: #007bff;
+}
+
+.upload-button {
+    padding: 10px 50px;
+    border-radius: 50px;
+}
+
+.send-button {
+    float: right;
+    font-size: 19px;
+    padding: 7px 30px;
+    margin-top: 4px;
+
 }
 
 .download-button {
     width: 100%;
 }
 
-.upload-button {
-    max-width: 300px;
-    border-radius: 50px;
-}
-
-.send-button {
-    width: inherit;
-    float: right;
-    height: 40px;
-    font-size: 19px;
-    font-weight: 100;
-    padding: 0 15px;
-    margin-top: 5px;
-}
-
-
 .button-lf {
     background-color: transparent;
     color: rgb(153, 153, 153);
     border-radius: 50px;
     border: 1px solid #dadce0;
-    width: 100%;
-    height: 39px;
-    margin-bottom: 1rem;
 }
 
-.text_ib {
+.upload-info {
     padding-top: 1em;
     font-size: 13px;
     color: rgb(153, 153, 153);
@@ -228,6 +205,26 @@ img {
     text-align: center;
 }
 
+.small {
+    padding: 40px;
+    width: 140px;
+    height: 140px;
+    border-radius: 4px;
+}
+
+.icon {
+    font-size: 3rem;
+}
+
+.icon-large {
+    font-size: 4rem;
+}
+
+.file-card-small {
+    margin: 20px 0;
+}
+
+
 .video-icon {
     border: 1px solid #cdc3ef;
     background-color: #d7cdf8;
@@ -235,15 +232,15 @@ img {
 }
 
 .image-icon {
-    border: 1px solid #f0c9c6;
-    background-color: #fad2cf;
-    color: #bd4444;
+    border: 1px solid #a6d7ff;
+    background-color: #d3ebff;
+    color: #018dff;
 }
 
 .other-icon {
-    border: 1px solid #f0c9c6;
-    background-color: #fad2cf;
-    color: #bd4444;
+    border: 1px solid #f5d6b6;
+    background-color: #f9e6d2;
+    color: #f8c73c;
 }
 
 .image-preview {
@@ -253,6 +250,11 @@ img {
     text-align: center;
 }
 
+.audio-icon {
+    border: 1px solid #ffbcb7;
+    background-color: #fad2cf;
+    color: #bd4444;
+}
 
 .img-fluid {
     border-radius: 3px;
@@ -278,36 +280,6 @@ img {
     box-shadow: 0 0 3px 0 whitesmoke;
 }
 
-.show-comments {
-    width: 100%;
-    text-align: center;
-    font-size: 18px;
-    background-color: #fff;
-    padding: 10px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    border-top: 1px solid #f2f2f2;
-}
-
-.audio-icon {
-    border: 1px solid #f0c9c6;
-    background-color: #fad2cf;
-    color: #bd4444;
-}
-
-.small {
-    padding: 40px;
-    width: 140px;
-    height: 140px;
-    border-radius: 4px;
-}
-
-
-.file-card-small {
-    margin: 1rem;
-    color: #fbbc04;
-}
-
 a, a:hover {
     color: #0056b3;
     text-decoration: none;
@@ -324,7 +296,7 @@ a, a:hover {
     margin: 4px 0;
 }
 
-.file-downloads {
+.file-download {
     color: #696969;
     text-align: center;
     margin-top: 5px;
@@ -485,15 +457,12 @@ a, a:hover {
         display: none;
     }
 
-    .file-date, .info {
+    .file-date, .file-info, .info {
         text-align: center;
     }
 
     .file-name {
         text-align: center;
         margin-bottom: 10px;
-    }
-    .download-button {
-        max-width: 200px;
     }
 }

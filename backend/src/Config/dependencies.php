@@ -137,7 +137,7 @@ $container['FileController'] = function (Container $c): FileController {
 };
 
 $container['SiteController'] = function (Container $c): SiteController {
-    return new SiteController($c['FileHelper'], $c['FileRepository']);
+    return new SiteController($c['FileHelper'], $c['FileRepository'], $c['settings']['file']);
 };
 
 $container['CommentsController'] = function (Container $c): CommentsController {

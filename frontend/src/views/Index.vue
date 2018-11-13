@@ -20,7 +20,7 @@
                             </button>
                             <input class ="chooser" @change="fileChange" type="file" name="upload"/>
                             <input type ="submit" @click="uploadFile" value="Upload file" class="button upload-button">
-                            <p class="text_ib">Maximum file size is 10 MB</p>
+                            <p class="upload-info">Maximum file size is 10 MB</p>
                         </div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
         </section>
         <div class="container">
             <div class="row justify-content-md-center">
-                <div class="col-sm-auto">
+                <div class="col-auto m-auto">
                     <router-link to="/last">
                         <button type="button" class="btn btn-dark button-lf align-middle">Last files</button>
                     </router-link>
@@ -86,7 +86,6 @@
                 if (!files.length)
                     return;
                 this.file = files[0];
-
             },
 
             percentsUpdate(percent) {
@@ -95,7 +94,8 @@
 
             redirectToFile(response) {
                 let link = '/file/' + response.id;
-                this.$router.push(link);
+                this.$router.push({path: link}
+                );
             },
 
             uploadFile() {
@@ -112,7 +112,7 @@
                 formData.append('upload', this.file);
 
                 let config = {
-                    onUploadProgress: function (progressEvent) {
+                    onUploadProgress: (progressEvent) => {
                         let percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                         percentsUpdate(percent);
                     },

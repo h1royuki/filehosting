@@ -16,7 +16,8 @@
                         <div class="col-lg-8">
                             <p class ="file-name">{{ response.filename }}</p>
                             <p class="file-date">Uploaded {{ response.date_upload | moment("D/M/Y") }}</p>
-
+                                <div class ="file-info">Size: {{ response.size | bitsConvert }}</div>
+                                <div class ="file-info">MD5: {{ response.hash }}</div>
                             <div v-if = "response.type == 1">
                                 <audio-info v-bind:info="response.info"></audio-info>
                             </div>
@@ -28,9 +29,10 @@
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            <button class="btn-primary button download-button" @click="downloadFile">Download ({{ response.size | bitsConvert }})
+                            <button class="btn-primary button download-button" @click="downloadFile">
+                                Download
                             </button>
-                            <p class ="file-downloads">Dwnld {{ response.downloads }} times </p>
+                            <p class ="file-download">Dwnld {{ response.downloads }} times </p>
                         </div>
                     </div>
                 </div>
@@ -73,15 +75,13 @@
             return {
                 file_id: this.$route.params.id,
                 response: null,
-                download_url: '/api/download/' + this.$route.params.id,
+                download_url: '/api/download/' + this.$route.params.id
             }
         },
 
         created() {
             this.getFile();
         },
-
-
         watch: {
             '$route'() {
                 this.getFile();

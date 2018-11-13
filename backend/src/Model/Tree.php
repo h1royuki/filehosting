@@ -39,7 +39,7 @@ class Tree implements JsonSerializable
         return $this->childs;
     }
 
-    public function setParent(Comment $parent): self
+    public function setParent(Comment $parent) : self
     {
         $this->parent = $parent;
 

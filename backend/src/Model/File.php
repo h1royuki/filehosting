@@ -31,6 +31,7 @@ class File implements JsonSerializable
             'filename'    => $this->getFilename(),
             'type'        => $this->getType(),
             'info'        => $this->getDecodedInfo(),
+            'hash'        => $this->getHash(),
             'size'        => $this->getSize(),
             'downloads'   => $this->getDownloads(),
             'date_upload' => $this->getDateUpload(),
@@ -47,7 +48,7 @@ class File implements JsonSerializable
         return $this->size;
     }
 
-    public function getType(): ?int
+    public function getType() : ?int
     {
         return $this->type;
     }
@@ -87,21 +88,21 @@ class File implements JsonSerializable
         return $this->hash;
     }
 
-    public function setId(int $id): self
+    public function setId(int $id) : self
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function setType(int $type): self
+    public function setType(int $type) : self
     {
         $this->type = $type;
 
         return $this;
     }
 
-    public function setInfo(array $info): self
+    public function setInfo(array $info) : self
     {
         $this->info = json_encode($info);
 

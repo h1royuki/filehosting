@@ -23,8 +23,8 @@ Vue.use(Notifications, { velocity });
 const routes = [
     { path: '/', component: Index, name: 'home', meta: {title: 'Uppuru'} },
     { path: '/last/', component: LastFiles, name: 'last', meta: {title: 'Last files'} },
-    { path: '/file/:id', component: ViewFile, name: 'view', meta: {title: 'View file'}  },
-    { path: '/error', component: Error, name: 'error', meta: {title: 'Not found'}, props: true  },
+    { path: '/file/:id', component: ViewFile, name: 'view', meta: {title: 'View file'}, props: true },
+    { path: '/error', component: Error, name: 'error', meta: {title: 'Not found'}, props: true },
 ];
 
 

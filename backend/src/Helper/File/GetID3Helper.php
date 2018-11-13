@@ -25,7 +25,7 @@ class GetID3Helper
         $path = $file->getFile()->file;
         $getid3 = $this->getID3->analyze($path);
 
-        $md5 = $this->getMD5Hash($getid3);
+        $md5 = $this->getMD5Hash($getid3, $path);
 
         $file = $file->setHash($md5);
 
@@ -84,8 +84,8 @@ class GetID3Helper
         return $info;
     }
 
-    private function getMD5Hash(array $getID3): string
+    private function getMD5Hash(array $getID3, string $path): string
     {
-        return $getID3['md5_data'];
+        return $getID3['md5_data'] ? $getID3['md5_data'] : md5_file($path);
     }
 }

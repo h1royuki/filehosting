@@ -6,7 +6,7 @@
                     <img :src="img" class="error">
                     <h2 v-if="error">{{ error.error }}</h2>
                     <h2 v-else>Page not found</h2>
-                    <router-link to="/"><h4>HOME</h4></router-link>
+                    <router-link to="/"><h4>Return to home</h4></router-link>
                 </div>
             </div>
         </div>

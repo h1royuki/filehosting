@@ -11,16 +11,20 @@ class SiteController
 {
     private $repository;
     private $helper;
+    private $settings;
 
-    public function __construct(FileHelper $helper, FileRepository $repository)
+    public function __construct(FileHelper $helper, FileRepository $repository, array $settings)
     {
         $this->repository = $repository;
         $this->helper = $helper;
+        $this->settings = $settings;
     }
 
     public function last(Request $request, Response $response, $args): Response
     {
-        $files = $this->repository->getLastFiles(12);
+        $limit = $this->settings['last_limit'];
+
+        $files = $this->repository->getLastFiles($limit);
 
         return $response->withJson($files);
     }

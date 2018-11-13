@@ -37,7 +37,7 @@ Simple SPA anonymous filehosting.
 * Install backend dependencies `composer install`
 * Install frontend dependecies `npm install`
 * Configure `/backend/config/settings.php`
-* Import `filehosting.sql` to MySQL database
+* Import `config/filehosting.sql` to MySQL database
 * Build frontend `npm run build`
 
 ### Contributors

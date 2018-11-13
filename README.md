@@ -18,6 +18,9 @@ Simple SPA anonymous filehosting.
 #### Frontend
 * Vue.js
 * Bootstrap
+* Vue-Aplayer
+* Vue-Dplayer
+* Vue-Moment
 
 ### Requirements
 * PHP >= 7.1
@@ -27,5 +30,15 @@ Simple SPA anonymous filehosting.
 * npm
 
 ### Installation
+* Clone repository `git clone https://github.com/h1royuki/filehosting.git`
+* Configure `config/nginx.conf` and copy to `/etc/nginx/sites-enabled/` (or your config dir)
+* Restart nginx `service nginx restart`
+* Configure `config/sphinx.conf` and run Sphinx `sudo searchd --config sphinx.conf --console`
+* Install backend dependencies `composer install`
+* Install frontend dependecies `npm install`
+* Configure `/backend/config/settings.php`
+* Import `filehosting.sql` to MySQL database
+* Build frontend `npm run build`
 
-* TODO
+### Contributors
+Thanks [rikka0612](https://github.com/rikka0612) for design!

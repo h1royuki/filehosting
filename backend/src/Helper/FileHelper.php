@@ -107,10 +107,10 @@ class FileHelper
         return new Stream($fh);
     }
 
-    public function getFileIfExist($id) :File
+    public function getFileIfExist(string $id) : File
     {
-        if (!is_int($id)) {
-            throw new Exception('File ID must be a integer');
+        if (!is_numeric($id)) {
+            throw new FileNotFoundException('File ID must be a integer');
         }
 
         $file = $this->repository->getFileById($id);

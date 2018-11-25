@@ -12,6 +12,7 @@ class File implements JsonSerializable
     const AUDIO_TYPE = '1';
     const VIDEO_TYPE = '2';
     const IMAGE_TYPE = '3';
+    const ARCHIVE_TYPE = '4';
     const OTHER_TYPE = '0';
 
     protected $id;

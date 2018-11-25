@@ -12,6 +12,10 @@ return [
             'last_limit'   => '12',
         ],
 
+        'file_info' => [
+            'archive_items' => 10,
+        ],
+
         'preview' => [
             'path'    => __DIR__.'/../../storage/preview',
             'default' => '404.png',

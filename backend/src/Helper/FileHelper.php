@@ -110,7 +110,7 @@ class FileHelper
     public function getFileIfExist(string $id) : File
     {
         if (!is_numeric($id)) {
-            throw new FileNotFoundException('File ID must be a integer');
+            throw new Exception('File ID must be a integer');
         }
 
         $file = $this->repository->getFileById($id);

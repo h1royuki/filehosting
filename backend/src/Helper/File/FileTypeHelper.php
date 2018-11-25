@@ -10,6 +10,8 @@ class FileTypeHelper
     const IMAGE_MIME_TYPES = ['image/png', 'image/jpeg', 'image/gif'];
     const AUDIO_MIME_TYPES = ['audio/mpeg', 'audio/flac', 'audio/vnd.wav'];
     const VIDEO_MIME_TYPES = ['video/mp4', 'video/3gpp', 'video/quicktime', 'video/webm'];
+    const ARCHIVE_MIME_TYPES = ['application/zip', 'application/x-rar-compressed', 'application/x-tar', 'application/gzip'];
+
 
     public function analyze(UploadedFile $file) : int
     {
@@ -23,6 +25,10 @@ class FileTypeHelper
 
         if ($this->isVideo($file)) {
             return File::VIDEO_TYPE;
+        }
+
+        if ($this->isArchive($file)) {
+            return File::ARCHIVE_TYPE;
         }
 
         return File::OTHER_TYPE;
@@ -41,5 +47,10 @@ class FileTypeHelper
     private function isImage(UploadedFile $file): bool
     {
         return in_array($file->getClientMediaType(), self::IMAGE_MIME_TYPES);
+    }
+
+    private function isArchive(UploadedFile $file): bool
+    {
+        return in_array($file->getClientMediaType(), self::ARCHIVE_MIME_TYPES);
     }
 }

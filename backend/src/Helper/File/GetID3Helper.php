@@ -11,10 +11,13 @@ class GetID3Helper
     const AUDIO_TAGS = ['artist', 'title', 'album'];
 
     private $getID3;
+    private $settings;
 
-    public function __construct(getID3 $getID3)
+    public function __construct(getID3 $getID3, $settings)
     {
         $this->getID3 = $getID3;
+        $this->settings = $settings;
+
         $this->getID3->encoding = 'UTF-8';
         $this->getID3->option_md5_data = true;
         $this->getID3->option_md5_data_source = true;
@@ -37,6 +40,9 @@ class GetID3Helper
         }
         if ($file->getType() == File::VIDEO_TYPE) {
             $file->setInfo($this->getVideoInfo($getid3));
+        }
+        if ($file->getType() == File::ARCHIVE_TYPE) {
+            $file->setInfo($this->getArchiveInfo($getid3));
         }
 
         return $file;
@@ -84,8 +90,36 @@ class GetID3Helper
         return $info;
     }
 
+    private function getArchiveInfo(array $getid3): array
+    {
+        $items = $getid3['zip']['files'];
+
+        $max_items = $this->settings['archive_items'];
+        $count = 0;
+
+
+        foreach ($items as $key => $item) {
+
+
+            if($count >= $max_items) {
+                break;
+            }
+
+            if (is_array($item)) {
+                $info['directories'][] = $key;
+            } else {
+                $info['files'][$key] = $item;
+            }
+
+            $count++;
+        }
+
+        return $info;
+    }
+
     private function getMD5Hash(array $getID3, string $path): string
     {
         return $getID3['md5_data'] ? $getID3['md5_data'] : md5_file($path);
     }
+
 }

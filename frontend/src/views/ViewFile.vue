@@ -2,7 +2,7 @@
     <section class="content file-content">
         <div class="container-fluid">
             <div v-if="response" class="row justify-content-md-center ">
-                <div class="col-lg-5">
+                <div class="col-lg-5 preview">
                     <div v-if = "response.type == 1">
                         <audio-card v-bind:id="response.id" v-bind:info="response.info"></audio-card>
                     </div>
@@ -11,6 +11,9 @@
                     </div>
                     <div v-if = "response.type == 3">
                         <image-card v-bind:id="response.id"></image-card>
+                    </div>
+                    <div v-if = "response.type == 4">
+                        <archive-card v-bind:info="response.info"></archive-card>
                     </div>
                     <div class="row justify-content-md-center file-card">
                         <div class="col-lg-8">
@@ -50,6 +53,7 @@
     import VideoCard from './Components/Cards/Video'
     import AudioCard from './Components/Cards/Audio'
     import ImageCard from './Components/Cards/Image'
+    import ArchiveCard from './Components/Cards/Archive'
 
     import VideoInfo from './Components/FileInfo/Video'
     import AudioInfo from './Components/FileInfo/Audio'
@@ -63,6 +67,7 @@
             'video-card' : VideoCard,
             'audio-card' : AudioCard,
             'image-card' : ImageCard,
+            'archive-card' : ArchiveCard,
 
             'video-info' : VideoInfo,
             'audio-info' : AudioInfo,

@@ -68,8 +68,8 @@ $container['sphinx'] = function (Container $c) : PDO {
 };
 
 // getID3
-$container['getid3Helper'] = function () : getID3Helper {
-    return new getid3Helper(new getID3());
+$container['getid3Helper'] = function (Container $c) : getID3Helper {
+    return new getid3Helper(new getID3(), $c['settings']['file_info']);
 };
 
 // monolog

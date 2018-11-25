@@ -43,3 +43,14 @@ ALTER TABLE `comments`
 --
 ALTER TABLE `files`
   ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `files`
+--
+ALTER TABLE `files`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

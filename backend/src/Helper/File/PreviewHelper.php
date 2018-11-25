@@ -29,7 +29,7 @@ class PreviewHelper
 
             $image->writeImage($previewPath);
         } catch (Exception $e) {
-            throw new Exception('Error generating preview');
+            return;
         }
     }
 

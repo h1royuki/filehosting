@@ -99,8 +99,6 @@ class GetID3Helper
 
 
         foreach ($items as $key => $item) {
-
-
             if($count >= $max_items) {
                 break;
             }

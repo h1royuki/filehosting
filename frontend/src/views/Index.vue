@@ -1,5 +1,4 @@
 <template>
-
     <div class="index">
         <section id="content" class="content">
             <div class="container">
@@ -19,7 +18,7 @@
                                 <upload-icon v-else class = "upload-icon" />
                             </button>
                             <input class ="chooser" @change="fileChange" type="file" name="upload"/>
-                            <input type ="submit" @click="uploadFile" value="Upload file" class="button upload-button">
+                            <input type ="submit" @click="uploadFile" value="Upload file" class="btn button upload-button">
                             <p class="upload-info">Maximum file size is 10 MB</p>
                         </div>
                     </div>
@@ -37,7 +36,6 @@
         </div>
         </section>
     </div>
-
 </template>
 
 <script>

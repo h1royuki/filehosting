@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            <button class="btn-primary button download-button" @click="downloadFile">
+                            <button class="btn btn-primary button download-button" @click="downloadFile">
                                 Download
                             </button>
                             <p class ="file-download">Dwnld {{ response.downloads }} times </p>

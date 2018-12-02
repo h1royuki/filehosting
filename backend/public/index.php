@@ -1,12 +1,22 @@
 <?php
 
-require __DIR__.'/../vendor/autoload.php';
+use Symfony\Component\Dotenv\Dotenv;
 
-$settings = require __DIR__.'/../src/Config/settings.php';
+chdir(dirname(__DIR__));
+
+require 'vendor/autoload.php';
+
+if (file_exists('../config/.env')) {
+    $env = new Dotenv();
+    $env->load('../config/.env');
+}
+
+$settings = require 'src/Config/settings.php';
+
 $app = new \Slim\App($settings);
 
-require __DIR__.'/../src/Config/dependencies.php';
+require 'src/Config/dependencies.php';
 
-require __DIR__.'/../src/Config/routes.php';
+require 'src/Config/routes.php';
 
 $app->run();

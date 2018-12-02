@@ -2,13 +2,13 @@
 
 return [
     'settings' => [
-        'path'                   => '/api',
-        'displayErrorDetails'    => true,
+        'path'                   => getenv('SITE_PATH'),
+        'displayErrorDetails'    => (bool)getenv('DEBUG'),
         'addContentLengthHeader' => true,
 
         'file' => [
-            'path'         => __DIR__.'/../../storage',
-            'max_size'     => '10485760',
+            'path'         => getenv('FILE_PATH'),
+            'max_size'     => (int)getenv('FILE_MAXSIZE'),
             'last_limit'   => '12',
         ],
 
@@ -17,7 +17,7 @@ return [
         ],
 
         'preview' => [
-            'path'    => __DIR__.'/../../storage/preview',
+            'path'    => getenv('PREVIEW_PATH'),
             'default' => '404.png',
             'width'   => '0',
             'height'  => '500',
@@ -29,20 +29,20 @@ return [
         ],
 
         'pdo' => [
-            'db_host' => 'localhost',
-            'db_name' => 'filehosting',
-            'db_user' => 'test',
-            'db_pass' => 'test',
+            'db_host' => getenv('DB_HOST'),
+            'db_name' => getenv('DB_NAME'),
+            'db_user' => getenv('DB_USER'),
+            'db_pass' => getenv('DB_PASSWORD'),
         ],
 
         'sphinx' => [
-            'db_host' => '127.0.0.1',
-            'db_port' => '9306',
+            'db_host' => getenv('SPHINX_HOST'),
+            'db_port' => getenv('SPHINX_PORT'),
         ],
 
         'logger' => [
             'name'  => 'slim-app',
-            'path'  => __DIR__.'/../../logs/app.log',
+            'path'  => getenv('MONOLOG_FILE'),
             'level' => \Monolog\Logger::DEBUG,
         ],
     ],

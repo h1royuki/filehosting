@@ -5,7 +5,7 @@
             <textarea v-model="comment.message" placeholder="Enter message" class="form-control form" rows="3"></textarea>
             <div v-if="comment.message" v-bind:class="{red: comment.message.length > settings.message.length }"
                  class="message-length">{{ comment.message.length + '/ 200' }}</div>
-            <button @click="sendComment" class ="button send-button">{{ reply.name ? 'Reply to ' + reply.name : 'Send' }}</button>
+            <button @click="sendComment" class ="btn button send-button">{{ reply.name ? 'Reply to ' + reply.name : 'Send' }}</button>
         </div>
         <div v-if="response" class ="comments">
             <div v-for="tree in response" class ="thread">

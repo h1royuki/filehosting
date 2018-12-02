@@ -97,9 +97,8 @@ class GetID3Helper
         $max_items = $this->settings['archive_items'];
         $count = 0;
 
-
         foreach ($items as $key => $item) {
-            if($count >= $max_items) {
+            if ($count >= $max_items) {
                 break;
             }
 
@@ -119,5 +118,4 @@ class GetID3Helper
     {
         return $getID3['md5_data'] ? $getID3['md5_data'] : md5_file($path);
     }
-
 }

@@ -3,16 +3,16 @@
         <div class="container-fluid">
             <div v-if="response" class="row justify-content-md-center ">
                 <div class="col-lg-5 preview">
-                    <div v-if = "response.type == 1">
+                    <div v-if = "response.type == types.audio">
                         <audio-card v-bind:id="response.id" v-bind:info="response.info"></audio-card>
                     </div>
-                    <div v-if = "response.type == 2">
+                    <div v-if = "response.type == types.video">
                         <video-card v-bind:id="response.id"></video-card>
                     </div>
-                    <div v-if = "response.type == 3">
+                    <div v-if = "response.type == types.image">
                         <image-card v-bind:id="response.id"></image-card>
                     </div>
-                    <div v-if = "response.type == 4">
+                    <div v-if = "response.type == types.archive">
                         <archive-card v-bind:info="response.info"></archive-card>
                     </div>
                     <div class="row justify-content-md-center file-card">
@@ -21,13 +21,13 @@
                             <p class="file-date">Uploaded {{ response.date_upload | moment("D/M/Y") }}</p>
                                 <div class ="file-info">Size: {{ response.size | bitsConvert }}</div>
                                 <div class ="file-info">MD5: {{ response.hash }}</div>
-                            <div v-if = "response.type == 1">
+                            <div v-if = "response.type == types.audio">
                                 <audio-info v-bind:info="response.info"></audio-info>
                             </div>
-                            <div v-if = "response.type == 2">
+                            <div v-if = "response.type == types.video">
                                 <video-info v-bind:info="response.info"></video-info>
                             </div>
-                            <div v-if = "response.type == 3">
+                            <div v-if = "response.type == types.image">
                                 <image-info v-bind:info="response.info"></image-info>
                             </div>
                         </div>
@@ -50,16 +50,18 @@
 </template>
 
 <script>
-    import VideoCard from './Components/Cards/Video'
-    import AudioCard from './Components/Cards/Audio'
-    import ImageCard from './Components/Cards/Image'
-    import ArchiveCard from './Components/Cards/Archive'
+    import FileTypes from '../FileTypes'
 
-    import VideoInfo from './Components/FileInfo/Video'
-    import AudioInfo from './Components/FileInfo/Audio'
-    import ImageInfo from './Components/FileInfo/Image'
+    import VideoCard from '../components/Cards/Video'
+    import AudioCard from '../components/Cards/Audio'
+    import ImageCard from '../components/Cards/Image'
+    import ArchiveCard from '../components/Cards/Archive'
 
-    import Comments from './Components/Comments'
+    import VideoInfo from '../components/FileInfo/Video'
+    import AudioInfo from '../components/FileInfo/Audio'
+    import ImageInfo from '../components/FileInfo/Image'
+
+    import Comments from '../components/Comments'
 
     export default {
 
@@ -80,7 +82,8 @@
             return {
                 file_id: this.$route.params.id,
                 response: null,
-                download_url: '/api/download/' + this.$route.params.id
+                download_url: '/api/download/' + this.$route.params.id,
+                types: FileTypes
             }
         },
 

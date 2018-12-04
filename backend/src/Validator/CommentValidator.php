@@ -3,6 +3,7 @@
 namespace FileHosting\Validator;
 
 use Exception;
+use FileHosting\Exception\ValidationException;
 use FileHosting\Model\Comment;
 
 class CommentValidator
@@ -16,16 +17,22 @@ class CommentValidator
 
     public function validate(Comment $comment): void
     {
+        $errors = [];
+
         if (empty($comment->getMessage())) {
-            throw new Exception('Empty message');
+            $errors[] = 'Empty message';
         }
 
         if (strlen($comment->getMessage()) > $this->settings['message_length']) {
-            throw new Exception('Message too long');
+            $errors[] = 'Message too long';
         }
 
         if (strlen($comment->getAuthor()) > $this->settings['name_length']) {
-            throw new Exception('Name too long');
+            $errors[] = 'Name too long';
+        }
+
+        if (!empty($errors)) {
+            throw new ValidationException($errors);
         }
     }
 }

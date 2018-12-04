@@ -9,11 +9,11 @@ class File implements JsonSerializable
 {
     const DATE_FORMAT = 'Y-m-d H:i:s';
 
-    const AUDIO_TYPE = '1';
-    const VIDEO_TYPE = '2';
-    const IMAGE_TYPE = '3';
-    const ARCHIVE_TYPE = '4';
-    const OTHER_TYPE = '0';
+    const AUDIO_TYPE = 'audio';
+    const VIDEO_TYPE = 'video';
+    const IMAGE_TYPE = 'image';
+    const ARCHIVE_TYPE = 'archive';
+    const OTHER_TYPE = 'other';
 
     protected $id;
     protected $file;
@@ -49,7 +49,7 @@ class File implements JsonSerializable
         return $this->size;
     }
 
-    public function getType() : ?int
+    public function getType() : ?string
     {
         return $this->type;
     }
@@ -96,7 +96,7 @@ class File implements JsonSerializable
         return $this;
     }
 
-    public function setType(int $type) : self
+    public function setType(string $type) : self
     {
         $this->type = $type;
 

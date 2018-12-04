@@ -23,6 +23,7 @@
                 img: img,
             }
         },
+
         props : ['error']
     }
 </script>

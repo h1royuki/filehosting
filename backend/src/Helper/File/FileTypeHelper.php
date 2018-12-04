@@ -13,7 +13,7 @@ class FileTypeHelper
     const ARCHIVE_MIME_TYPES = ['application/zip', 'application/x-rar-compressed', 'application/x-tar', 'application/gzip'];
 
 
-    public function analyze(UploadedFile $file) : int
+    public function analyze(UploadedFile $file) : string
     {
         if ($this->isAudio($file)) {
             return File::AUDIO_TYPE;

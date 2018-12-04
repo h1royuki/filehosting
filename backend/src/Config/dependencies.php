@@ -26,7 +26,7 @@ $container = $app->getContainer();
 
 // errorHandlers
 $container['errorHandler'] = function (Container $c) : ErrorHandler {
-    return new ErrorHandler($c['logger'], $c['notFoundHandler']);
+    return new ErrorHandler($c['logger']);
 };
 
 $container['notFoundHandler'] = function (Container $c) : NotFoundHandler {

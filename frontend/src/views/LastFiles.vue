@@ -5,9 +5,9 @@
                 <div class="col-lg-3 text-center" v-for="item in response">
                     <router-link :to ="`/file/${item.id}`">
                         <div class = "file-card-small">
-                            <div v-if = "item.type == 1" class = "file audio-icon small"><audio-icon class = "icon" /></div>
-                            <div v-else-if = "item.type == 2" class = "file video-icon small"><video-icon class = "icon" /></div>
-                            <div v-else-if = "item.type == 3" class = "file image-icon small"><image-icon class = "icon" /></div>
+                            <div v-if = "item.type == types.audio" class = "file audio-icon small"><audio-icon class = "icon" /></div>
+                            <div v-else-if = "item.type == types.video" class = "file video-icon small"><video-icon class = "icon" /></div>
+                            <div v-else-if = "item.type == types.image" class = "file image-icon small"><image-icon class = "icon" /></div>
                             <div v-else class = "file other-icon small"> <file-icon class = "icon" /></div>
 
                             <div class = "file-info-small">
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+    import FileTypes from '../FileTypes'
+
     import FileIcon from "vue-material-design-icons/File.vue";
     import AudioIcon from "vue-material-design-icons/FileMusic.vue";
     import VideoIcon from "vue-material-design-icons/FileVideo.vue";
@@ -32,7 +34,8 @@
     export default {
         data() {
             return {
-                response: null
+                response: null,
+                types: FileTypes
             }
         },
 

@@ -106,9 +106,6 @@
                     });
             },
             sendComment() {
-                if (this.validateForm()) {
-                    return;
-                }
 
                 this.$http
                     .post('/comments', {

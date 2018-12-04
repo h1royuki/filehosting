@@ -2,6 +2,7 @@
 
 namespace FileHosting\Validator;
 
+use FileHosting\Exception\ValidationException;
 use Slim\Http\UploadedFile;
 
 class FileValidator
@@ -15,16 +16,22 @@ class FileValidator
 
     public function validate(UploadedFile $file = null) : void
     {
+        $errors = [];
+
         if (!$file) {
-            throw new \Exception('File not attached');
+            $errors[] = 'File not attached';
         }
 
         if (empty($file->getClientFilename())) {
-            throw new \Exception('Unknown file name');
+            $errors[] = 'Unknown file name';
         }
 
         if ($file->getSize() > $this->settings['max_size']) {
-            throw new \Exception('File size too big');
+            $errors[] = 'File size too big';
+        }
+
+        if (!empty($this->errors)) {
+            throw new ValidationException($errors);
         }
     }
 }

@@ -48,10 +48,8 @@ Vue.prototype.$http = axios.create({
 Vue.prototype.$http.interceptors.response.use((response) => {
     return response;
 }, (error) => {
-    let status = error.response.status;
     let data = error.response.data;
-
-    if (status == 500 || status == 404) {
+    if (data) {
         router.push({
             name: 'error',
             params: { error: data }

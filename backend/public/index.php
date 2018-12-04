@@ -17,6 +17,8 @@ $app = new \Slim\App($settings);
 
 require 'src/Config/dependencies.php';
 
+require 'src/Config/middleware.php';
+
 require 'src/Config/routes.php';
 
 $app->run();

@@ -2,7 +2,6 @@
 
 namespace FileHosting\Handler;
 
-use FileHosting\Exception\FileNotFoundException;
 use Monolog\Logger;
 use Slim\Http\Request;
 use Slim\Http\Response;

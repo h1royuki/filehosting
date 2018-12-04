@@ -2,7 +2,6 @@
 
 namespace FileHosting\Validator;
 
-use Exception;
 use FileHosting\Exception\ValidationException;
 use FileHosting\Model\Comment;
 

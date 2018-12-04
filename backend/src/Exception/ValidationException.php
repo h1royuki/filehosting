@@ -4,8 +4,8 @@ namespace FileHosting\Exception;
 
 use Exception;
 
-class ValidationException extends Exception {
-
+class ValidationException extends Exception
+{
     private $errors;
 
     public function __construct(array $errors)
@@ -13,7 +13,8 @@ class ValidationException extends Exception {
         $this->errors = $errors;
     }
 
-    public function getErrors(): array {
+    public function getErrors(): array
+    {
         return $this->errors;
     }
 }

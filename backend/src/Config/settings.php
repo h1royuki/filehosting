@@ -3,12 +3,12 @@
 return [
     'settings' => [
         'path'                   => getenv('SITE_PATH'),
-        'displayErrorDetails'    => (bool)getenv('DEBUG'),
+        'displayErrorDetails'    => (bool) getenv('DEBUG'),
         'addContentLengthHeader' => true,
 
         'file' => [
             'path'         => getenv('FILE_PATH'),
-            'max_size'     => (int)getenv('FILE_MAXSIZE'),
+            'max_size'     => (int) getenv('FILE_MAXSIZE'),
             'last_limit'   => '12',
         ],
 

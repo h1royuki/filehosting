@@ -8,7 +8,6 @@ use Slim\Http\Response;
 
 class FileNotFoundMiddleware
 {
-
     public function __invoke(Request $request, Response $response, $next)
     {
         try {
@@ -18,7 +17,5 @@ class FileNotFoundMiddleware
                 ->withJson(['error' => $e->getMessage()])
                 ->withStatus(404);
         }
-
     }
 }
-

@@ -12,12 +12,7 @@ class FileTypeHelper
     const VIDEO_MIME_TYPES = ['video/mp4', 'video/3gpp', 'video/quicktime', 'video/webm'];
     const ARCHIVE_MIME_TYPES = ['application/zip', 'application/x-rar-compressed', 'application/x-tar', 'application/gzip'];
 
-<<<<<<< HEAD
-
     public function analyze(UploadedFile $file) : string
-=======
-    public function analyze(UploadedFile $file) : int
->>>>>>> c28ab3b744cf83502ef3866cc55757beaecdfe90
     {
         if ($this->isAudio($file)) {
             return File::AUDIO_TYPE;

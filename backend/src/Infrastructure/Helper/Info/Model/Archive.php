@@ -2,12 +2,10 @@
 
 namespace FileHosting\Infrastructure\Helper\Info\Model;
 
-
 use JsonSerializable;
 
 class Archive implements Info, JsonSerializable
 {
-
     private $directories = [];
     private $files = [];
     private $max_items;
@@ -21,7 +19,7 @@ class Archive implements Info, JsonSerializable
     {
         return [
             'directories' => $this->directories,
-            'files' => $this->files
+            'files'       => $this->files,
         ];
     }
 
@@ -35,7 +33,6 @@ class Archive implements Info, JsonSerializable
         $count = 0;
 
         foreach ($info as $key => $item) {
-
             if ($count >= $this->max_items) {
                 break;
             }
@@ -50,7 +47,5 @@ class Archive implements Info, JsonSerializable
         }
 
         return $this;
-
     }
-
 }

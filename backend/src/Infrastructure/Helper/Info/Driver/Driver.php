@@ -6,7 +6,5 @@ use FileHosting\Entity\File;
 
 interface Driver
 {
-
     public function getInfo(File $file): array;
-
 }

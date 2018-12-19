@@ -12,7 +12,6 @@ use FileHosting\Infrastructure\Helper\Info\Model\Video;
 
 class GetID3Helper implements InfoHelper
 {
-
     private $driver;
     private $settings;
 
@@ -20,7 +19,6 @@ class GetID3Helper implements InfoHelper
     {
         $this->driver = $driver;
         $this->settings = $settings;
-
     }
 
     public function collect(File $file): File
@@ -28,7 +26,6 @@ class GetID3Helper implements InfoHelper
         $info = $this->driver->getInfo($file);
 
         $file = $file->setHash($this->getMD5Hash($file));
-
 
         if ($file->getType() == File::AUDIO_TYPE) {
             $file->setInfo($this->getAudioInfo($info));
@@ -48,13 +45,11 @@ class GetID3Helper implements InfoHelper
 
     private function getAudioInfo(array $info): Info
     {
-
         return (new Audio())->setInfo($info);
     }
 
     private function getImageInfo(array $info): Info
     {
-
         return (new Image())->setInfo($info);
     }
 
@@ -62,7 +57,6 @@ class GetID3Helper implements InfoHelper
     {
         return (new Video())->setInfo($info);
     }
-
 
     private function getArchiveInfo(array $info): Info
     {

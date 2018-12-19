@@ -3,13 +3,12 @@
 namespace FileHosting\Infrastructure\Service;
 
 use Exception;
+use FileHosting\Entity\File;
 use FileHosting\Exception\FileNotFoundException;
-use FileHosting\Infrastructure\Helper\GetID3InfoHelper;
 use FileHosting\Infrastructure\Helper\Info\InfoHelper;
-use FileHosting\Infrastructure\Helper\TypeHelper;
 use FileHosting\Infrastructure\Helper\PathHelper;
 use FileHosting\Infrastructure\Helper\PreviewHelper;
-use FileHosting\Entity\File;
+use FileHosting\Infrastructure\Helper\TypeHelper;
 use FileHosting\Repository\FileRepository;
 use Slim\Http\Stream;
 
@@ -39,7 +38,6 @@ class FileService
 
             $file = $this->moveFile($file, $filePath);
             $file = $this->createPreview($file, $filePath);
-
 
             $this->repository->commitTransaction();
 
@@ -123,7 +121,6 @@ class FileService
             throw new FileNotFoundException('File not found');
         }
 
-
         $path = $this->pathHelper->getPathToFile($file);
 
         if (!file_exists($path)) {
@@ -132,5 +129,4 @@ class FileService
 
         return $file;
     }
-
 }

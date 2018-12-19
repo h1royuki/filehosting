@@ -19,10 +19,10 @@ class Video implements Info, JsonSerializable
     public function getInfo(): array
     {
         return [
-            'bitrate' => $this->bitrate,
+            'bitrate'   => $this->bitrate,
             'framerate' => $this->framerate,
-            'width' => $this->width,
-            'height' => $this->height
+            'width'     => $this->width,
+            'height'    => $this->height,
         ];
     }
 
@@ -34,7 +34,5 @@ class Video implements Info, JsonSerializable
         $this->height = $info['video']['resolution_y'];
 
         return $this;
-
     }
-
 }

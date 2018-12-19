@@ -2,14 +2,15 @@
 
 namespace FileHosting\Controller;
 
-use FileHosting\Helper\File\GetID3Helper;
-use FileHosting\Helper\FileHelper;
-use FileHosting\Model\File;
+use DateTime;
+use FileHosting\Entity\File;
+use FileHosting\Infrastructure\Service\FileService;
 use FileHosting\Repository\FileRepository;
 use FileHosting\Repository\SearchRepository;
 use FileHosting\Validator\FileValidator;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Slim\Http\UploadedFile;
 
 class FileController
 {
@@ -17,20 +18,17 @@ class FileController
     private $fileHelper;
     private $fileRepository;
     private $searchRepository;
-    private $getID3Helper;
 
     public function __construct(
         FileValidator $validator,
-        FileHelper $fileHelper,
+        FileService $fileHelper,
         FileRepository $fileRepository,
-        SearchRepository $searchRepository,
-        GetID3Helper $getID3Helper
+        SearchRepository $searchRepository
     ) {
         $this->validator = $validator;
         $this->fileHelper = $fileHelper;
         $this->fileRepository = $fileRepository;
         $this->searchRepository = $searchRepository;
-        $this->getID3Helper = $getID3Helper;
     }
 
     public function download(Request $request, Response $response, array $args): Response
@@ -54,14 +52,16 @@ class FileController
 
     public function upload(Request $request, Response $response)
     {
-        $uploadedFile = $request->getUploadedFiles()['upload'];
-        $this->validator->validate($uploadedFile);
 
-        $file = new File();
-        $file = $this->fileHelper->parseRequest($uploadedFile, $file);
+        $file = $request->getUploadedFiles()['upload'];
+
+        $this->validator->validate($file);
+
+        $file = $this->deserialize($file);
+
         $file = $this->fileHelper->getFileType($file);
-        $file = $this->getID3Helper->getFileInfo($file);
         $file = $this->fileHelper->saveFile($file);
+
         $this->searchRepository->indexFile($file);
 
         return $response->withJson($file);
@@ -78,5 +78,16 @@ class FileController
         $response->write($preview);
 
         return $response->withHeader('Content-Type', FILEINFO_MIME_TYPE);
+    }
+
+    private function deserialize(UploadedFile $file): File
+    {
+
+        return (new File)
+            ->setFile($file)
+            ->setFilename($file->getClientFilename())
+            ->setSize($file->getSize())
+            ->setDateUpload((new DateTime())->format(File::DATE_FORMAT))
+            ->setDownloads(0);
     }
 }

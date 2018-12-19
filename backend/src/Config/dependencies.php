@@ -8,12 +8,13 @@ use FileHosting\Controller\SearchController;
 use FileHosting\Controller\SiteController;
 use FileHosting\Handler\ErrorHandler;
 use FileHosting\Handler\NotFoundHandler;
-use FileHosting\Helper\CommentsHelper;
-use FileHosting\Helper\File\GetID3Helper;
-use FileHosting\Helper\File\PathHelper;
-use FileHosting\Helper\File\PreviewHelper;
-use FileHosting\Helper\FileHelper;
-use FileHosting\Helper\SearchHelper;
+use FileHosting\Infrastructure\Helper\Info\GetID3Helper;
+use FileHosting\Infrastructure\Helper\Info\Driver\GetID3Driver;
+use FileHosting\Infrastructure\Helper\PathHelper;
+use FileHosting\Infrastructure\Helper\PreviewHelper;
+use FileHosting\Infrastructure\Service\CommentsService;
+use FileHosting\Infrastructure\Service\FileService;
+use FileHosting\Infrastructure\Service\SearchService;
 use FileHosting\Repository\CommentsRepository;
 use FileHosting\Repository\FileRepository;
 use FileHosting\Repository\SearchRepository;
@@ -67,11 +68,6 @@ $container['sphinx'] = function (Container $c) : PDO {
     return $sphinx;
 };
 
-// getID3
-$container['getid3Helper'] = function (Container $c) : getID3Helper {
-    return new getid3Helper(new getID3(), $c['settings']['file_info']);
-};
-
 // monolog
 $container['logger'] = function (Container $c): Logger {
     $settings = $c['settings']['logger'];
@@ -104,15 +100,20 @@ $container['SearchRepository'] = function (Container $c): SearchRepository {
     return new SearchRepository($c['sphinx']);
 };
 
+// services
+$container['FileService'] = function (Container $c): FileService {
+    return new FileService($c['GetID3InfoHelper'], $c['PreviewHelper'], $c['PathHelper'], $c['FileRepository']);
+};
+
+$container['SearchService'] = function (Container $c): SearchService {
+    return new SearchService($c['SearchRepository'], $c['FileRepository']);
+};
+
+$container['CommentsService'] = function (Container $c): CommentsService {
+    return new CommentsService($c['CommentsRepository']);
+};
+
 // helpers
-$container['FileHelper'] = function (Container $c): FileHelper {
-    return new FileHelper($c['PreviewHelper'], $c['FileRepository'], $c['PathHelper']);
-};
-
-$container['SearchHelper'] = function (Container $c): SearchHelper {
-    return new SearchHelper($c['SearchRepository'], $c['FileRepository']);
-};
-
 $container['PathHelper'] = function (Container $c): PathHelper {
     return new PathHelper($c['settings']['file'], $c['settings']['preview']);
 };
@@ -121,33 +122,39 @@ $container['PreviewHelper'] = function (Container $c): PreviewHelper {
     return new PreviewHelper($c['settings']['preview']);
 };
 
-$container['CommentsHelper'] = function (Container $c): CommentsHelper {
-    return new CommentsHelper($c['CommentsRepository']);
+$container['GetID3InfoHelper'] = function (Container $c): GetID3Helper {
+    return new GetID3Helper($c['GetID3Driver'], $c['settings']['file_info']);
 };
+
+
+// drivers
+$container['GetID3Driver'] = function (Container $c): GetID3Driver {
+    return new GetID3Driver(new getID3());
+};
+
 
 // controllers
 $container['FileController'] = function (Container $c): FileController {
     return new FileController(
         $c['FileValidator'],
-        $c['FileHelper'],
+        $c['FileService'],
         $c['FileRepository'],
-        $c['SearchRepository'],
-        $c['getid3Helper']
+        $c['SearchRepository']
     );
 };
 
 $container['SiteController'] = function (Container $c): SiteController {
-    return new SiteController($c['FileHelper'], $c['FileRepository'], $c['settings']['file']);
+    return new SiteController($c['FileService'], $c['FileRepository'], $c['settings']['file']);
 };
 
 $container['CommentsController'] = function (Container $c): CommentsController {
     return new CommentsController(
         $c['CommentValidator'],
-        $c['CommentsHelper'],
+        $c['CommentsService'],
         $c['CommentsRepository']
     );
 };
 
 $container['SearchController'] = function (Container $c): SearchController {
-    return new SearchController($c['SearchHelper']);
+    return new SearchController($c['SearchService']);
 };

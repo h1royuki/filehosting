@@ -1,35 +1,18 @@
 <?php
 
-namespace FileHosting\Helper;
+namespace FileHosting\Infrastructure\Service;
 
-use DateTime;
-use FileHosting\Model\Comment;
-use FileHosting\Model\Tree;
+use FileHosting\Entity\Comment;
+use FileHosting\Entity\Tree;
 use FileHosting\Repository\CommentsRepository;
 
-class CommentsHelper
+class CommentsService
 {
     private $repository;
 
     public function __construct(CommentsRepository $repository)
     {
         $this->repository = $repository;
-    }
-
-    public function parseRequest(array $post, Comment $comment) : Comment
-    {
-        $file = $post['file_id'];
-        $author = $post['author'] ? $post['author'] : 'Anonymous';
-        $parent_id = $post['parent_id'] ? $post['parent_id'] : null;
-        $message = $post['message'];
-        $date = new DateTime();
-
-        return $comment
-            ->setFileId($file)
-            ->setAuthor($author)
-            ->setMessage($message)
-            ->setDate($date->getTimestamp())
-            ->setParentId($parent_id);
     }
 
     public function addNewComment(Comment $comment) : Comment

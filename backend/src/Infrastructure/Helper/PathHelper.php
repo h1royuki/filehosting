@@ -1,10 +1,10 @@
 <?php
 
-namespace FileHosting\Helper\File;
+namespace FileHosting\Infrastructure\Helper;
 
 use DateTime;
 use Exception;
-use FileHosting\Model\File;
+use FileHosting\Entity\File;
 
 class PathHelper
 {

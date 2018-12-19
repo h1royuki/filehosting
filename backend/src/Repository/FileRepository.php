@@ -2,7 +2,7 @@
 
 namespace FileHosting\Repository;
 
-use FileHosting\Model\File;
+use FileHosting\Entity\File;
 use PDO;
 
 class FileRepository
@@ -65,7 +65,7 @@ class FileRepository
         $pdo = $this->pdo->prepare('SELECT * FROM files WHERE id = :id');
         $pdo->bindValue(':id', $id);
         $pdo->execute();
-        $pdo->setFetchMode(\PDO::FETCH_CLASS, '\FileHosting\Model\File');
+        $pdo->setFetchMode(\PDO::FETCH_CLASS, '\FileHosting\Entity\File');
 
         return $pdo->fetch();
     }
@@ -74,7 +74,7 @@ class FileRepository
     {
         $pdo = $this->pdo->prepare("SELECT * FROM files ORDER BY date_upload DESC LIMIT $limit");
         $pdo->execute();
-        $pdo->setFetchMode(\PDO::FETCH_CLASS, '\FileHosting\Model\File');
+        $pdo->setFetchMode(\PDO::FETCH_CLASS, '\FileHosting\Entity\File');
 
         return $pdo->fetchAll();
     }
@@ -87,7 +87,7 @@ class FileRepository
         $pdo->bindValue(':ids', $ids);
         $pdo->execute();
 
-        $pdo->setFetchMode(\PDO::FETCH_CLASS, '\FileHosting\Model\File');
+        $pdo->setFetchMode(\PDO::FETCH_CLASS, '\FileHosting\Entity\File');
 
         return $pdo->fetchAll();
     }

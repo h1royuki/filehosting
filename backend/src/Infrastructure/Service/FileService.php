@@ -1,26 +1,28 @@
 <?php
 
-namespace FileHosting\Helper;
+namespace FileHosting\Infrastructure\Service;
 
-use DateTime;
 use Exception;
 use FileHosting\Exception\FileNotFoundException;
-use FileHosting\Helper\File\FileTypeHelper;
-use FileHosting\Helper\File\PathHelper;
-use FileHosting\Helper\File\PreviewHelper;
-use FileHosting\Model\File;
+use FileHosting\Infrastructure\Helper\GetID3InfoHelper;
+use FileHosting\Infrastructure\Helper\Info\InfoHelper;
+use FileHosting\Infrastructure\Helper\TypeHelper;
+use FileHosting\Infrastructure\Helper\PathHelper;
+use FileHosting\Infrastructure\Helper\PreviewHelper;
+use FileHosting\Entity\File;
 use FileHosting\Repository\FileRepository;
 use Slim\Http\Stream;
-use Slim\Http\UploadedFile;
 
-class FileHelper
+class FileService
 {
     private $pathHelper;
     private $repository;
     private $previewHelper;
+    private $infoHelper;
 
-    public function __construct(PreviewHelper $previewHelper, FileRepository $repository, PathHelper $pathHelper)
+    public function __construct(InfoHelper $infoHelper, PreviewHelper $previewHelper, PathHelper $pathHelper, FileRepository $repository)
     {
+        $this->infoHelper = $infoHelper;
         $this->previewHelper = $previewHelper;
         $this->repository = $repository;
         $this->pathHelper = $pathHelper;
@@ -29,6 +31,7 @@ class FileHelper
     public function saveFile(File $file): File
     {
         $this->repository->beginTransaction();
+        $file = $this->infoHelper->collect($file);
         $file = $this->repository->addNewFile($file);
 
         try {
@@ -36,6 +39,7 @@ class FileHelper
 
             $file = $this->moveFile($file, $filePath);
             $file = $this->createPreview($file, $filePath);
+
 
             $this->repository->commitTransaction();
 
@@ -67,7 +71,7 @@ class FileHelper
 
     public function getFileType(File $file): File
     {
-        $typeHelper = new FileTypeHelper();
+        $typeHelper = new TypeHelper();
         $type = $typeHelper->analyze($file->getFile());
         $file = $file->setType($type);
 
@@ -119,6 +123,7 @@ class FileHelper
             throw new FileNotFoundException('File not found');
         }
 
+
         $path = $this->pathHelper->getPathToFile($file);
 
         if (!file_exists($path)) {
@@ -128,15 +133,4 @@ class FileHelper
         return $file;
     }
 
-    public function parseRequest(UploadedFile $uploaded, File $file) : File
-    {
-        $date = new DateTime();
-
-        return $file
-            ->setFile($uploaded)
-            ->setFilename($uploaded->getClientFilename())
-            ->setSize($uploaded->getSize())
-            ->setDateUpload($date->format(File::DATE_FORMAT))
-            ->setDownloads(0);
-    }
 }

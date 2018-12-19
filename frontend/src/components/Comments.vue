@@ -107,6 +107,11 @@
             },
             sendComment() {
 
+                if (this.validateForm()) {
+                    return;
+                }
+
+
                 this.$http
                     .post('/comments', {
                         file_id:  this.file_id,

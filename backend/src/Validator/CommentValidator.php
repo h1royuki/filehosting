@@ -3,7 +3,7 @@
 namespace FileHosting\Validator;
 
 use FileHosting\Exception\ValidationException;
-use FileHosting\Model\Comment;
+use FileHosting\Entity\Comment;
 
 class CommentValidator
 {

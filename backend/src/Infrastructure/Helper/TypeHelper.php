@@ -1,11 +1,11 @@
 <?php
 
-namespace FileHosting\Helper\File;
+namespace FileHosting\Infrastructure\Helper;
 
-use FileHosting\Model\File;
+use FileHosting\Entity\File;
 use Slim\Http\UploadedFile;
 
-class FileTypeHelper
+class TypeHelper
 {
     const IMAGE_MIME_TYPES = ['image/png', 'image/jpeg', 'image/gif'];
     const AUDIO_MIME_TYPES = ['audio/mpeg', 'audio/flac', 'audio/vnd.wav'];

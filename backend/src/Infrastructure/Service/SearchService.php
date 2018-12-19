@@ -1,11 +1,11 @@
 <?php
 
-namespace FileHosting\Helper;
+namespace FileHosting\Infrastructure\Service;
 
 use FileHosting\Repository\FileRepository;
 use FileHosting\Repository\SearchRepository;
 
-class SearchHelper
+class SearchService
 {
     private $searchRepository;
     private $fileRepository;

@@ -1,6 +1,6 @@
 <?php
 
-namespace FileHosting\Helper\File;
+namespace FileHosting\Infrastructure\Helper;
 
 use Exception;
 use Imagick;

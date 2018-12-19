@@ -2,7 +2,7 @@
 
 namespace FileHosting\Repository;
 
-use FileHosting\Model\Comment;
+use FileHosting\Entity\Comment;
 use PDO;
 
 class CommentsRepository
@@ -34,7 +34,7 @@ class CommentsRepository
 
         $pdo->bindValue(':file_id', $file_id);
         $pdo->execute();
-        $pdo->setFetchMode(\PDO::FETCH_CLASS, '\FileHosting\Model\Comment');
+        $pdo->setFetchMode(\PDO::FETCH_CLASS, '\FileHosting\Entity\Comment');
 
         return $pdo->fetchAll();
     }

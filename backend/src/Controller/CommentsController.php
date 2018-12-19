@@ -2,8 +2,9 @@
 
 namespace FileHosting\Controller;
 
-use FileHosting\Helper\CommentsHelper;
-use FileHosting\Model\Comment;
+use DateTime;
+use FileHosting\Infrastructure\Service\CommentsService;
+use FileHosting\Entity\Comment;
 use FileHosting\Repository\CommentsRepository;
 use FileHosting\Validator\CommentValidator;
 use Slim\Http\Request;
@@ -12,35 +13,53 @@ use Slim\Http\Response;
 class CommentsController
 {
     private $repository;
-    private $helper;
+    private $service;
     private $validator;
 
-    public function __construct(CommentValidator $validator, CommentsHelper $helper, CommentsRepository $repository)
+    public function __construct(CommentValidator $validator, CommentsService $service, CommentsRepository $repository)
     {
         $this->repository = $repository;
-        $this->helper = $helper;
+        $this->service = $service;
         $this->validator = $validator;
     }
 
-    public function view(Request $request, Response $response, $args): Response
+    public function view(Request $request, Response $response, array $args): Response
     {
         $id = $args['id'];
 
-        $comments = $this->helper->getCommentsByFileId($id);
+        $comments = $this->service->getCommentsByFileId($id);
 
         return $response->withJson($comments);
     }
 
-    public function add(Request $request, Response $response, array $args): Response
+    public function add(Request $request, Response $response): Response
     {
-        $post = $request->getParsedBody();
+        $comment = $this->deserialize($request);
 
-        $comment = new Comment();
-        $comment = $this->helper->parseRequest($post, $comment);
         $this->validator->validate($comment);
 
-        $comment = $this->helper->addNewComment($comment);
+        $comment = $this->service->addNewComment($comment);
 
         return $response->withJson($comment);
+    }
+
+    private function deserialize(Request $request): Comment
+    {
+
+        $request = $request->getParsedBody();
+
+        $file = $request['file_id'];
+        $author = $request['author'] ? $request['author'] : 'Anonymous';
+        $parent_id = $request['parent_id'] ? $request['parent_id'] : null;
+        $message = $request['message'];
+        $date = new DateTime();
+
+        return (new Comment())
+            ->setFileId($file)
+            ->setAuthor($author)
+            ->setMessage($message)
+            ->setDate($date->getTimestamp())
+            ->setParentId($parent_id);
+
     }
 }

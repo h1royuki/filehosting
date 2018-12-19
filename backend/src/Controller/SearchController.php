@@ -2,7 +2,7 @@
 
 namespace FileHosting\Controller;
 
-use FileHosting\Helper\SearchHelper;
+use FileHosting\Infrastructure\Service\SearchService;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -10,7 +10,7 @@ class SearchController
 {
     private $searchHelper;
 
-    public function __construct(SearchHelper $searchHelper)
+    public function __construct(SearchService $searchHelper)
     {
         $this->searchHelper = $searchHelper;
     }

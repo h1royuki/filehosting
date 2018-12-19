@@ -1,6 +1,6 @@
 <?php
 
-namespace FileHosting\Model;
+namespace FileHosting\Entity;
 
 use JsonSerializable;
 

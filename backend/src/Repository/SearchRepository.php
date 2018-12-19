@@ -2,7 +2,7 @@
 
 namespace FileHosting\Repository;
 
-use FileHosting\Model\File;
+use FileHosting\Entity\File;
 use PDO;
 
 class SearchRepository

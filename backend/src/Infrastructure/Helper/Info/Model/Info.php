@@ -2,7 +2,6 @@
 
 namespace FileHosting\Infrastructure\Helper\Info\Model;
 
-
 interface Info
 {
     public function getInfo(): array;

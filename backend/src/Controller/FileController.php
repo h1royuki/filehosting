@@ -45,7 +45,6 @@ class FileController
 
     public function upload(Request $request, Response $response)
     {
-
         $file = $request->getUploadedFiles()['upload'];
 
         $this->validator->validate($file);
@@ -75,8 +74,7 @@ class FileController
 
     private function deserialize(UploadedFile $file): File
     {
-
-        return (new File)
+        return (new File())
             ->setFile($file)
             ->setFilename($file->getClientFilename())
             ->setSize($file->getSize())

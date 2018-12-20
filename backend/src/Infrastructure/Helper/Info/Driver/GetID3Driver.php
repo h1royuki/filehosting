@@ -7,7 +7,6 @@ use getID3;
 
 class GetID3Driver implements Driver
 {
-
     private $getID3;
 
     public function __construct(getID3 $getID3)

@@ -8,8 +8,8 @@ use FileHosting\Controller\SearchController;
 use FileHosting\Controller\SiteController;
 use FileHosting\Handler\ErrorHandler;
 use FileHosting\Handler\NotFoundHandler;
-use FileHosting\Infrastructure\Helper\Info\GetID3Helper;
 use FileHosting\Infrastructure\Helper\Info\Driver\GetID3Driver;
+use FileHosting\Infrastructure\Helper\Info\GetID3Helper;
 use FileHosting\Infrastructure\Helper\PathHelper;
 use FileHosting\Infrastructure\Helper\PreviewHelper;
 use FileHosting\Infrastructure\Service\CommentsService;
@@ -126,12 +126,10 @@ $container['GetID3InfoHelper'] = function (Container $c): GetID3Helper {
     return new GetID3Helper($c['GetID3Driver'], $c['settings']['file_info']);
 };
 
-
 // drivers
 $container['GetID3Driver'] = function (): GetID3Driver {
     return new GetID3Driver(new getID3());
 };
-
 
 // controllers
 $container['FileController'] = function (Container $c): FileController {

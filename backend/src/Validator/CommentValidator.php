@@ -2,8 +2,8 @@
 
 namespace FileHosting\Validator;
 
-use FileHosting\Exception\ValidationException;
 use FileHosting\Entity\Comment;
+use FileHosting\Exception\ValidationException;
 
 class CommentValidator
 {

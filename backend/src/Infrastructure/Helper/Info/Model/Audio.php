@@ -2,12 +2,10 @@
 
 namespace FileHosting\Infrastructure\Helper\Info\Model;
 
-
 use JsonSerializable;
 
 class Audio implements Info, JsonSerializable
 {
-
     const INFO = ['dataformat', 'bitrate'];
     const TAGS = ['artist', 'title', 'album'];
 
@@ -26,10 +24,10 @@ class Audio implements Info, JsonSerializable
     {
         return [
             'bitrate' => $this->bitrate,
-            'artist' => $this->artist,
-            'album' => $this->album,
-            'title' => $this->title,
-            'format' => $this->format
+            'artist'  => $this->artist,
+            'album'   => $this->album,
+            'title'   => $this->title,
+            'format'  => $this->format,
         ];
     }
 

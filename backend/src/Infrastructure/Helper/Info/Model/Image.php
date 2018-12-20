@@ -18,9 +18,9 @@ class Image implements Info, JsonSerializable
     public function getInfo(): array
     {
         return [
-            'width' => $this->width,
+            'width'  => $this->width,
             'height' => $this->height,
-            'format' => $this->format
+            'format' => $this->format,
         ];
     }
 
@@ -32,5 +32,4 @@ class Image implements Info, JsonSerializable
 
         return $this;
     }
-
 }

@@ -30,7 +30,7 @@ class Archive implements Info, JsonSerializable
         return $this->getInfo();
     }
 
-    public function setInfo(array $info): Info
+    public function fill(array $info): Info
     {
         $count = 0;
 

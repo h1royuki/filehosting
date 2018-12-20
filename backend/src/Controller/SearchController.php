@@ -8,18 +8,18 @@ use Slim\Http\Response;
 
 class SearchController
 {
-    private $searchHelper;
+    private $service;
 
-    public function __construct(SearchService $searchHelper)
+    public function __construct(SearchService $service)
     {
-        $this->searchHelper = $searchHelper;
+        $this->service = $service;
     }
 
     public function search(Request $request, Response $response, array $args): Response
     {
-        $query = $args['query'];
+        $query = $request->getParam('query');
 
-        $result = $this->searchHelper->searchFiles($query);
+        $result = $this->service->searchFiles($query);
 
         return $response->withJson($result);
     }

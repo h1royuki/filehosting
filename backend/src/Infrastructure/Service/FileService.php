@@ -4,35 +4,43 @@ namespace FileHosting\Infrastructure\Service;
 
 use Exception;
 use FileHosting\Exception\FileNotFoundException;
-use FileHosting\Infrastructure\Helper\GetID3InfoHelper;
 use FileHosting\Infrastructure\Helper\Info\InfoHelper;
 use FileHosting\Infrastructure\Helper\TypeHelper;
 use FileHosting\Infrastructure\Helper\PathHelper;
 use FileHosting\Infrastructure\Helper\PreviewHelper;
 use FileHosting\Entity\File;
 use FileHosting\Repository\FileRepository;
+use FileHosting\Repository\SearchRepository;
 use Slim\Http\Stream;
 
 class FileService
 {
     private $pathHelper;
-    private $repository;
+    private $fileRepository;
+    private $searchRepository;
     private $previewHelper;
     private $infoHelper;
 
-    public function __construct(InfoHelper $infoHelper, PreviewHelper $previewHelper, PathHelper $pathHelper, FileRepository $repository)
+    public function __construct(
+        InfoHelper $infoHelper,
+        PreviewHelper $previewHelper,
+        PathHelper $pathHelper,
+        FileRepository $fileRepository,
+        SearchRepository $searchRepository
+    )
     {
         $this->infoHelper = $infoHelper;
         $this->previewHelper = $previewHelper;
-        $this->repository = $repository;
+        $this->fileRepository = $fileRepository;
         $this->pathHelper = $pathHelper;
+        $this->searchRepository = $searchRepository;
     }
 
     public function saveFile(File $file): File
     {
-        $this->repository->beginTransaction();
+        $this->fileRepository->beginTransaction();
         $file = $this->infoHelper->collect($file);
-        $file = $this->repository->addNewFile($file);
+        $file = $this->fileRepository->addNewFile($file);
 
         try {
             $filePath = $this->pathHelper->getPathToFile($file);
@@ -41,11 +49,11 @@ class FileService
             $file = $this->createPreview($file, $filePath);
 
 
-            $this->repository->commitTransaction();
+            $this->fileRepository->commitTransaction();
 
             return $file;
         } catch (Exception $e) {
-            $this->repository->abortTransaction();
+            $this->fileRepository->abortTransaction();
 
             throw new Exception($e->getMessage());
         }
@@ -117,7 +125,7 @@ class FileService
             throw new Exception('File ID must be a integer');
         }
 
-        $file = $this->repository->getFileById($id);
+        $file = $this->fileRepository->getFileById($id);
 
         if (!$file) {
             throw new FileNotFoundException('File not found');
@@ -131,6 +139,22 @@ class FileService
         }
 
         return $file;
+    }
+
+    public function updateDownloads(File $file): bool
+    {
+        return $this->fileRepository->updateDownloads($file);
+    }
+
+    public function indexFile(File $file): bool
+    {
+        return $this->searchRepository->indexFile($file);
+    }
+
+    public function getLastFiles(int $count): array
+    {
+
+        return $this->fileRepository->getLastFiles($count);
     }
 
 }

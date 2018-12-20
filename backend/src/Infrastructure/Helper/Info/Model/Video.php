@@ -26,7 +26,7 @@ class Video implements Info, JsonSerializable
         ];
     }
 
-    public function setInfo(array $info): Info
+    public function fill(array $info): Info
     {
         $this->bitrate = $info['bitrate'];
         $this->framerate = $info['video']['frame_rate'];

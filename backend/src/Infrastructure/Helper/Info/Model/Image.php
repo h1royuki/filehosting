@@ -24,7 +24,7 @@ class Image implements Info, JsonSerializable
         ];
     }
 
-    public function setInfo(array $info): Info
+    public function fill(array $info): Info
     {
         $this->width = $info['video']['resolution_x'];
         $this->height = $info['video']['resolution_y'];

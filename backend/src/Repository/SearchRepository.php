@@ -23,7 +23,7 @@ class SearchRepository
         return $sphinx->fetchAll();
     }
 
-    public function indexFile(File $file)
+    public function indexFile(File $file): bool
     {
         $sphinx = $this->sphinx->prepare('INSERT INTO rt_files (id, filename) VALUES (:id, :filename) ');
         $sphinx->bindValue(':id', $file->getId());

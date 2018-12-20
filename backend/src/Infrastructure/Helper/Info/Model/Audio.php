@@ -33,7 +33,7 @@ class Audio implements Info, JsonSerializable
         ];
     }
 
-    public function setInfo(array $info): Info
+    public function fill(array $info): Info
     {
         foreach ($info['audio'] as $key => $value) {
             if (in_array($key, self::INFO)) {

@@ -3,20 +3,17 @@
 namespace FileHosting\Controller;
 
 use FileHosting\Infrastructure\Service\FileService;
-use FileHosting\Repository\FileRepository;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
 class SiteController
 {
-    private $repository;
-    private $helper;
+    private $service;
     private $settings;
 
-    public function __construct(FileService $helper, FileRepository $repository, array $settings)
+    public function __construct(FileService $service, array $settings)
     {
-        $this->repository = $repository;
-        $this->helper = $helper;
+        $this->service = $service;
         $this->settings = $settings;
     }
 
@@ -24,7 +21,7 @@ class SiteController
     {
         $limit = $this->settings['last_limit'];
 
-        $files = $this->repository->getLastFiles($limit);
+        $files = $this->service->getLastFiles($limit);
 
         return $response->withJson($files);
     }
@@ -33,7 +30,7 @@ class SiteController
     {
         $id = $args['id'];
 
-        $file = $this->helper->getFileIfExist($id);
+        $file = $this->service->getFileIfExist($id);
 
         return $response->withJson($file);
     }

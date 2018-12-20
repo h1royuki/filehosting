@@ -5,20 +5,17 @@ namespace FileHosting\Controller;
 use DateTime;
 use FileHosting\Infrastructure\Service\CommentsService;
 use FileHosting\Entity\Comment;
-use FileHosting\Repository\CommentsRepository;
 use FileHosting\Validator\CommentValidator;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
 class CommentsController
 {
-    private $repository;
     private $service;
     private $validator;
 
-    public function __construct(CommentValidator $validator, CommentsService $service, CommentsRepository $repository)
+    public function __construct(CommentValidator $validator, CommentsService $service)
     {
-        $this->repository = $repository;
         $this->service = $service;
         $this->validator = $validator;
     }

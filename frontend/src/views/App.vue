@@ -14,7 +14,7 @@
                     </div>
                     <div class="col-lg-6 col-10">
                         <autocomplete
-                                source="/api/search/"
+                                source="/api/search?query="
                                 results-property="items"
                                 results-display="filename"
                                 input-class="search"

@@ -74,21 +74,17 @@ class FileRepository
     {
         $pdo = $this->pdo->prepare("SELECT * FROM files ORDER BY date_upload DESC LIMIT $limit");
         $pdo->execute();
-        $pdo->setFetchMode(\PDO::FETCH_CLASS, '\FileHosting\Entity\File');
 
-        return $pdo->fetchAll();
+        return $pdo->fetchAll(\PDO::FETCH_CLASS, '\FileHosting\Entity\File');
     }
 
     public function getFilesByIds(array $ids): ?array
     {
         $ids = implode(', ', $ids);
 
-        $pdo = $this->pdo->prepare('SELECT id, filename FROM files WHERE id IN (:ids)');
-        $pdo->bindValue(':ids', $ids);
+        $pdo = $this->pdo->query("SELECT id, filename FROM files WHERE id IN ({$ids})");
         $pdo->execute();
 
-        $pdo->setFetchMode(\PDO::FETCH_CLASS, '\FileHosting\Entity\File');
-
-        return $pdo->fetchAll();
+        return $pdo->fetchAll(\PDO::FETCH_CLASS, '\FileHosting\Entity\File');
     }
 }

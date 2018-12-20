@@ -18,6 +18,9 @@ class SearchService
 
     public function searchFiles($query)
     {
+
+        $query = $this->escapeQuery($query);
+
         $array = $this->searchRepository->getIdsByQuery($query);
 
         if (empty($array)) {
@@ -27,6 +30,7 @@ class SearchService
         $ids = $this->getIdsFromArray($array);
 
         $result = $this->fileRepository->getFilesByIds($ids);
+
 
         return $result;
     }
@@ -40,5 +44,13 @@ class SearchService
         }
 
         return $ids;
+    }
+
+    public function escapeQuery(string $query): string
+    {
+        $from = ['\\', '(', ')', '|', '-', '!', '@', '~', '"', '&', '/', '^', '$', '='];
+        $to = ['\\\\', '\(', '\)', '\|', '\-', '\!', '\@', '\~', '\"', '\&', '\/', '\^', '\$', '\='];
+
+        return str_replace($from, $to, $query);
     }
 }

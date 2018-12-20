@@ -49,18 +49,18 @@ class GetID3Helper implements InfoHelper
     private function getAudioInfo(array $info): Info
     {
 
-        return (new Audio())->setInfo($info);
+        return (new Audio())->fill($info);
     }
 
     private function getImageInfo(array $info): Info
     {
 
-        return (new Image())->setInfo($info);
+        return (new Image())->fill($info);
     }
 
     private function getVideoInfo(array $info): Info
     {
-        return (new Video())->setInfo($info);
+        return (new Video())->fill($info);
     }
 
 
@@ -70,7 +70,7 @@ class GetID3Helper implements InfoHelper
         $max_items = $this->settings['archive_items'];
 
         return (new Archive($max_items))
-            ->setInfo($info);
+            ->fill($info);
     }
 
     private function getMD5Hash(File $file): string

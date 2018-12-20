@@ -1,8 +1,8 @@
 <template xmlns="http://www.w3.org/1999/html">
-    <section class="content file-content">
+    <section class="file-content">
         <div class="container-fluid">
             <div v-if="response" class="row justify-content-md-center ">
-                <div class="col-lg-5 preview">
+                <div class="col-lg-6 preview">
                     <div v-if = "response.type == types.audio">
                         <audio-card v-bind:id="response.id" v-bind:info="response.info"></audio-card>
                     </div>

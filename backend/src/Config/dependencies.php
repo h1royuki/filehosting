@@ -102,7 +102,7 @@ $container['SearchRepository'] = function (Container $c): SearchRepository {
 
 // services
 $container['FileService'] = function (Container $c): FileService {
-    return new FileService($c['GetID3InfoHelper'], $c['PreviewHelper'], $c['PathHelper'], $c['FileRepository']);
+    return new FileService($c['GetID3InfoHelper'], $c['PreviewHelper'], $c['PathHelper'], $c['FileRepository'], $c['SearchRepository']);
 };
 
 $container['SearchService'] = function (Container $c): SearchService {
@@ -128,7 +128,7 @@ $container['GetID3InfoHelper'] = function (Container $c): GetID3Helper {
 
 
 // drivers
-$container['GetID3Driver'] = function (Container $c): GetID3Driver {
+$container['GetID3Driver'] = function (): GetID3Driver {
     return new GetID3Driver(new getID3());
 };
 
@@ -137,21 +137,18 @@ $container['GetID3Driver'] = function (Container $c): GetID3Driver {
 $container['FileController'] = function (Container $c): FileController {
     return new FileController(
         $c['FileValidator'],
-        $c['FileService'],
-        $c['FileRepository'],
-        $c['SearchRepository']
+        $c['FileService']
     );
 };
 
 $container['SiteController'] = function (Container $c): SiteController {
-    return new SiteController($c['FileService'], $c['FileRepository'], $c['settings']['file']);
+    return new SiteController($c['FileService'], $c['settings']['file']);
 };
 
 $container['CommentsController'] = function (Container $c): CommentsController {
     return new CommentsController(
         $c['CommentValidator'],
-        $c['CommentsService'],
-        $c['CommentsRepository']
+        $c['CommentsService']
     );
 };
 

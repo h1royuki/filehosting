@@ -5,8 +5,6 @@ namespace FileHosting\Controller;
 use DateTime;
 use FileHosting\Entity\File;
 use FileHosting\Infrastructure\Service\FileService;
-use FileHosting\Repository\FileRepository;
-use FileHosting\Repository\SearchRepository;
 use FileHosting\Validator\FileValidator;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -15,34 +13,29 @@ use Slim\Http\UploadedFile;
 class FileController
 {
     private $validator;
-    private $fileHelper;
-    private $fileRepository;
-    private $searchRepository;
+    private $service;
 
     public function __construct(
         FileValidator $validator,
-        FileService $fileHelper,
-        FileRepository $fileRepository,
-        SearchRepository $searchRepository
+        FileService $service
     ) {
         $this->validator = $validator;
-        $this->fileHelper = $fileHelper;
-        $this->fileRepository = $fileRepository;
-        $this->searchRepository = $searchRepository;
+        $this->service = $service;
     }
 
     public function download(Request $request, Response $response, array $args): Response
     {
         $id = $args['id'];
 
-        $file = $this->fileHelper->getFileIfExist($id);
+        $file = $this->service->getFileIfExist($id);
 
         if (!$args['stream']) {
             $file = $file->setDownloads($file->getDownloads() + 1);
         }
 
-        $this->fileRepository->updateDownloads($file);
-        $stream = $this->fileHelper->getFileStream($file);
+        $this->service->updateDownloads($file);
+
+        $stream = $this->service->getFileStream($file);
 
         return $response->withBody($stream)
             ->withHeader('Content-Disposition', "attachment; filename={$file->getFilename()};")
@@ -59,10 +52,10 @@ class FileController
 
         $file = $this->deserialize($file);
 
-        $file = $this->fileHelper->getFileType($file);
-        $file = $this->fileHelper->saveFile($file);
+        $file = $this->service->getFileType($file);
+        $file = $this->service->saveFile($file);
 
-        $this->searchRepository->indexFile($file);
+        $this->service->indexFile($file);
 
         return $response->withJson($file);
     }
@@ -71,9 +64,9 @@ class FileController
     {
         $id = $args['id'];
 
-        $file = $this->fileHelper->getFileIfExist($id);
+        $file = $this->service->getFileIfExist($id);
 
-        $preview = $this->fileHelper->getPreview($file);
+        $preview = $this->service->getPreview($file);
 
         $response->write($preview);
 

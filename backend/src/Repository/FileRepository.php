@@ -82,7 +82,8 @@ class FileRepository
     {
         $ids = implode(', ', $ids);
 
-        $pdo = $this->pdo->query("SELECT id, filename FROM files WHERE id IN ({$ids})");
+        $pdo = $this->pdo->prepare("SELECT id, filename FROM files WHERE id IN ($ids)");
+        $pdo->bindValue(':ids', $ids, PDO::PARAM_STR);
         $pdo->execute();
 
         return $pdo->fetchAll(\PDO::FETCH_CLASS, '\FileHosting\Entity\File');

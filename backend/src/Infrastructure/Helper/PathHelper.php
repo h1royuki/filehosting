@@ -37,7 +37,7 @@ class PathHelper
 
     public function getDefaultPreviewPath()
     {
-        return $this->getPreviewPathFromConfig().
+        return $this->getFilePathFromConfig() .
             DIRECTORY_SEPARATOR.
             $this->getDefaultPreviewPathFromConfig();
     }
@@ -58,7 +58,7 @@ class PathHelper
 
     public function createDirectory(string $path): void
     {
-        $result = mkdir($path, self::DEFAULT_FOLDER_PERMISSIONS);
+        $result = mkdir($path, self::DEFAULT_FOLDER_PERMISSIONS, true);
 
         if (!$result) {
             throw new Exception('Error create directory');

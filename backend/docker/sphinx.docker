@@ -1,0 +1,12 @@
+FROM macbre/sphinxsearch:3.0.1
+
+ADD ./config/sphinx.conf /opt/sphinx/conf/sphinx.conf
+
+RUN mkdir /var/run/sphinxsearch/ \
+    && touch /var/run/sphinxsearch/searchd.pid \
+    && mkdir /var/lib/sphinxsearch/ \
+    && mkdir /var/lib/sphinxsearch/log/ \
+    && touch /var/lib/sphinxsearch/log/searchd.log \
+    && mkdir /var/lib/sphinxsearch/data/ \
+    && touch /var/lib/sphinxsearch/data/rt_files.lock \
+    && touch /var/lib/sphinxsearch/data/index_files.sph

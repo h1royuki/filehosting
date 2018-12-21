@@ -18,14 +18,14 @@ CREATE TABLE `comments` (
 --
 
 CREATE TABLE `files` (
-  `id` int(11) NOT NULL,
-  `filename` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` tinyint(4) NOT NULL,
-  `info` json DEFAULT NULL,
-  `hash` char(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `size` int(11) NOT NULL,
-  `date_upload` datetime NOT NULL,
-  `downloads` int(11) DEFAULT NULL
+  `id`          int(11)                                                       NOT NULL,
+  `filename`    varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type`        varchar(20)                                                   NOT NULL,
+  `info`        json DEFAULT NULL,
+  `hash`        char(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci     NOT NULL,
+  `size`        int(11)                                                       NOT NULL,
+  `date_upload` datetime                                                      NOT NULL,
+  `downloads`   int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --

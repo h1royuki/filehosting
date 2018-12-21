@@ -1,0 +1,5 @@
+FROM nginx:1.10
+
+ADD ./config/nginx.conf /etc/nginx/conf.d/default.conf
+WORKDIR /var/www/backend
+RUN mkdir logs && chown www-data:www-data logs

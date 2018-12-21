@@ -1,7 +1,10 @@
 var path = require('path')
 var webpack = require('webpack')
-
+const Dotenv = require('dotenv-webpack');
 module.exports = {
+    plugins: [
+        new Dotenv()
+    ],
     entry: './src/main.js',
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -66,12 +69,6 @@ module.exports = {
         historyApiFallback: true,
         noInfo: true,
         overlay: true,
-        proxy: {
-            '/api': {
-                target: 'http://127.0.0.1/api/',
-                pathRewrite: {'^/api' : ''}
-            }
-        }
     },
     performance: {
         hints: false

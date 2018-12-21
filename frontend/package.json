@@ -4,6 +4,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "dotenv-webpack": "^1.5.7",
     "velocity-animate": "^1.5.2",
     "vue": "^2.5.11",
     "vue-aplayer": "^1.6.1",

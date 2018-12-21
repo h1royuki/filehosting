@@ -14,7 +14,7 @@
             return {
                 player: {
                     video: {
-                        url: '/api/download/' + this.id + '/stream'
+                        url: 'http://127.0.0.1:8082/download/' + this.id + '/stream'
                     }
                 }
             }

@@ -20,6 +20,8 @@ Vue.use(VueRouter);
 Vue.use(VueMoment);
 Vue.use(Notifications, { velocity });
 
+const api = process.env.VUE_API_URI;
+
 const routes = [
     { path: '/', component: Index, name: 'home', meta: {title: 'Uppuru'} },
     { path: '/last/', component: LastFiles, name: 'last', meta: {title: 'Last files'} },
@@ -42,7 +44,7 @@ router.beforeEach((to, from, next) => {
 });
 
 Vue.prototype.$http = axios.create({
-    baseURL: '/api'
+    baseURL: api
 });
 
 Vue.prototype.$http.interceptors.response.use((response) => {

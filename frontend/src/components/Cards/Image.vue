@@ -9,7 +9,7 @@
 
         data() {
             return {
-                preview: '/api/preview/' + this.id
+                preview: 'http://127.0.0.1:8082/preview/' + this.id
             }
         },
 

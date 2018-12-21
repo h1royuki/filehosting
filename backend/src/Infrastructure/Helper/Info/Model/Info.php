@@ -7,5 +7,5 @@ interface Info
 {
     public function getInfo(): array;
 
-    public function setInfo(array $info): self;
+    public function fill(array $info): self;
 }

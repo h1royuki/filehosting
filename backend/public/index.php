@@ -6,9 +6,9 @@ chdir(dirname(__DIR__));
 
 require 'vendor/autoload.php';
 
-if (file_exists('../config/.env')) {
+if (file_exists('.env')) {
     $env = new Dotenv();
-    $env->load('../config/.env');
+    $env->load('.env');
 }
 
 $settings = require 'src/Config/settings.php';

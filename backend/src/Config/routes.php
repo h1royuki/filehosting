@@ -1,13 +1,10 @@
 <?php
 
-$container = $app->getContainer();
-$path = $container['settings']['path'];
-
-$app->post($path.'/upload', \FileController::class.':upload');
-$app->get($path.'/download/{id}[/{stream}]', \FileController::class.':download');
-$app->get($path.'/preview/{id}', \FileController::class.':preview');
-$app->get($path . '/search', \SearchController::class . ':search');
-$app->get($path.'/last', \SiteController::class.':last');
-$app->get($path.'/file/{id}', \SiteController::class.':view');
-$app->get($path.'/comments/{id}', \CommentsController::class.':view');
-$app->post($path.'/comments', \CommentsController::class.':add');
+$app->post('/upload', \FileController::class . ':upload');
+$app->get('/download/{id}[/{stream}]', \FileController::class . ':download');
+$app->get('/preview/{id}', \FileController::class . ':preview');
+$app->get('/search', \SearchController::class . ':search');
+$app->get('/last', \SiteController::class . ':last');
+$app->get('/file/{id}', \SiteController::class . ':view');
+$app->get('/comments/{id}', \CommentsController::class . ':view');
+$app->post('/comments', \CommentsController::class . ':add');

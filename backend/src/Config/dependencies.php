@@ -39,8 +39,9 @@ $container['PDO'] = function (Container $c) : PDO {
     $config = $c['settings']['pdo'];
 
     $dsn = sprintf(
-        'mysql:host=%s;dbname=%s;charset=utf8',
+        'mysql:host=%s;port=%s;dbname=%s;charset=utf8',
         $config['db_host'],
+        $config['db_port'],
         $config['db_name']
     );
     $pdo = new PDO(

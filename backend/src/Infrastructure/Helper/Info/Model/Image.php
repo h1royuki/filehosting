@@ -4,7 +4,7 @@ namespace FileHosting\Infrastructure\Helper\Info\Model;
 
 use JsonSerializable;
 
-class Image implements Info, JsonSerializable
+class Image implements Model, JsonSerializable
 {
     private $width;
     private $height;
@@ -24,7 +24,7 @@ class Image implements Info, JsonSerializable
         ];
     }
 
-    public function fill(array $info): Info
+    public function fill(array $info): Model
     {
         $this->width = $info['video']['resolution_x'];
         $this->height = $info['video']['resolution_y'];

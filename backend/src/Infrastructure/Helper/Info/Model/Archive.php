@@ -4,7 +4,7 @@ namespace FileHosting\Infrastructure\Helper\Info\Model;
 
 use JsonSerializable;
 
-class Archive implements Info, JsonSerializable
+class Archive implements Model, JsonSerializable
 {
     private $directories = [];
     private $files = [];
@@ -28,7 +28,7 @@ class Archive implements Info, JsonSerializable
         return $this->getInfo();
     }
 
-    public function fill(array $info): Info
+    public function fill(array $info): Model
     {
         $count = 0;
 

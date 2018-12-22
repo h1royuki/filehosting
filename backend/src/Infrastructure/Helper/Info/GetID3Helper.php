@@ -7,7 +7,7 @@ use FileHosting\Infrastructure\Helper\Info\Driver\Driver;
 use FileHosting\Infrastructure\Helper\Info\Model\Archive;
 use FileHosting\Infrastructure\Helper\Info\Model\Audio;
 use FileHosting\Infrastructure\Helper\Info\Model\Image;
-use FileHosting\Infrastructure\Helper\Info\Model\Info;
+use FileHosting\Infrastructure\Helper\Info\Model\Model;
 use FileHosting\Infrastructure\Helper\Info\Model\Video;
 
 class GetID3Helper implements InfoHelper
@@ -46,25 +46,25 @@ class GetID3Helper implements InfoHelper
         return $file;
     }
 
-    private function getAudioInfo(array $info): Info
+    private function getAudioInfo(array $info): Model
     {
 
         return (new Audio())->fill($info);
     }
 
-    private function getImageInfo(array $info): Info
+    private function getImageInfo(array $info): Model
     {
 
         return (new Image())->fill($info);
     }
 
-    private function getVideoInfo(array $info): Info
+    private function getVideoInfo(array $info): Model
     {
         return (new Video())->fill($info);
     }
 
 
-    private function getArchiveInfo(array $info): Info
+    private function getArchiveInfo(array $info): Model
     {
         $info = $info['zip']['files'];
         $max_items = $this->settings['archive_items'];

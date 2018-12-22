@@ -3,7 +3,7 @@
 namespace FileHosting\Infrastructure\Helper\Info\Model;
 
 
-interface Info
+interface Model
 {
     public function getInfo(): array;
 

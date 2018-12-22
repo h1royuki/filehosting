@@ -1,6 +1,5 @@
 /storage/*
-/storage/preview/*
-!/storage/preview/404.png
+!/storage/404.png
 /vendor/
 /logs/*
 var

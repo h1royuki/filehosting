@@ -9,7 +9,7 @@
 
         data() {
             return {
-                preview: 'http://127.0.0.1:8082/preview/' + this.id
+                preview: process.env.VUE_API_URI + 'preview/' + this.id
             }
         },
 

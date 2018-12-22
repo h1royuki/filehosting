@@ -14,7 +14,7 @@
             return {
                 player: {
                     video: {
-                        url: 'http://127.0.0.1:8082/download/' + this.id + '/stream'
+                        url: process.env.VUE_API_URI + 'download/' + this.id + '/stream'
                     }
                 }
             }

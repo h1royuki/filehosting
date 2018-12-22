@@ -2,7 +2,7 @@
 
 namespace FileHosting\Entity;
 
-use FileHosting\Infrastructure\Helper\Info\Model\Info;
+use FileHosting\Infrastructure\Helper\Info\Model\Model;
 use JsonSerializable;
 use Slim\Http\UploadedFile;
 
@@ -104,7 +104,7 @@ class File implements JsonSerializable
         return $this;
     }
 
-    public function setInfo(Info $info): self
+    public function setInfo(Model $info): self
     {
         $this->info = json_encode($info);
 

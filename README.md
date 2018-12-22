@@ -24,11 +24,8 @@ Simple SPA anonymous filehosting.
 
 ### Installation
 * Clone repository `git clone https://github.com/h1royuki/filehosting.git`
-* Build and run containers `docker-compose up`
-* Install backend dependencies `composer install`
-* Install frontend dependencies `npm install`
-* Build frontend `npm run build`
-* Open `127.0.0.1:8082`
+* Run `make init`
+* Open `127.0.0.1:8081`
 
 ### Contributors
 Thanks [rikka0612](https://github.com/rikka0612) for design!

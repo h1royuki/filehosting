@@ -82,7 +82,7 @@
             return {
                 file_id: this.$route.params.id,
                 response: null,
-                download_url: 'http://127.0.0.1:8082/download/' + this.$route.params.id,
+                download_url: process.env.VUE_API_URI + 'download/' + this.$route.params.id,
                 types: FileTypes
             }
         },

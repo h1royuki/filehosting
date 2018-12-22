@@ -14,7 +14,7 @@
                     </div>
                     <div class="col-lg-6 col-10">
                         <autocomplete
-                                source="http://127.0.0.1:8082/search?query="
+                                :source="search"
                                 results-property="items"
                                 results-display="filename"
                                 input-class="search"
@@ -49,6 +49,9 @@
         methods: {
             toFile(file) {
                 this.$router.push('/file/' + file.value);
+            },
+            search(input) {
+                return process.env.VUE_API_URI + 'search?query=' + input
             }
         }
     }

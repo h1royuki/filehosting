@@ -12,7 +12,7 @@
         data() {
             return {
                 player: {
-                    src: 'http://127.0.0.1:8082/download/' + this.id + '/stream',
+                    src: process.env.VUE_API_URI + 'download/' + this.id + '/stream',
                     title: this.info.title,
                     artist: this.info.artist
                 }

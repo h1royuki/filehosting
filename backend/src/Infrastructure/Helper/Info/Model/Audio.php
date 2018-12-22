@@ -4,7 +4,7 @@ namespace FileHosting\Infrastructure\Helper\Info\Model;
 
 use JsonSerializable;
 
-class Audio implements Info, JsonSerializable
+class Audio implements Model, JsonSerializable
 {
     const INFO = ['dataformat', 'bitrate'];
     const TAGS = ['artist', 'title', 'album'];
@@ -31,7 +31,7 @@ class Audio implements Info, JsonSerializable
         ];
     }
 
-    public function fill(array $info): Info
+    public function fill(array $info): Model
     {
         foreach ($info['audio'] as $key => $value) {
             if (in_array($key, self::INFO)) {

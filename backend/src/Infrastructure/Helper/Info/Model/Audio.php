@@ -6,7 +6,6 @@ use JsonSerializable;
 
 class Audio implements InfoModel, JsonSerializable
 {
-
     private $bitrate;
     private $artist;
     private $album;

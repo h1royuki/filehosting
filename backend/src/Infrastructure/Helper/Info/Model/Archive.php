@@ -34,14 +34,12 @@ class Archive implements InfoModel, JsonSerializable
         return $this->directories;
     }
 
-
     public function addFile(string $key, string $value): self
     {
         $this->files[$key] = $value;
 
         return $this;
     }
-
 
     public function getFiles(): array
     {

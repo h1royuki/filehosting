@@ -3,12 +3,12 @@
 namespace FileHosting\Infrastructure\Service;
 
 use Exception;
+use FileHosting\Entity\File;
 use FileHosting\Exception\FileNotFoundException;
 use FileHosting\Infrastructure\Helper\Info\InfoHelper;
-use FileHosting\Infrastructure\Helper\TypeHelper;
 use FileHosting\Infrastructure\Helper\PathHelper;
 use FileHosting\Infrastructure\Helper\PreviewHelper;
-use FileHosting\Entity\File;
+use FileHosting\Infrastructure\Helper\TypeHelper;
 use FileHosting\Repository\FileRepository;
 use FileHosting\Repository\SearchRepository;
 use Slim\Http\Stream;
@@ -27,8 +27,7 @@ class FileService
         PathHelper $pathHelper,
         FileRepository $fileRepository,
         SearchRepository $searchRepository
-    )
-    {
+    ) {
         $this->infoHelper = $infoHelper;
         $this->previewHelper = $previewHelper;
         $this->fileRepository = $fileRepository;
@@ -47,7 +46,6 @@ class FileService
 
             $file = $this->moveFile($file, $filePath);
             $file = $this->createPreview($file, $filePath);
-
 
             $this->fileRepository->commitTransaction();
 
@@ -131,7 +129,6 @@ class FileService
             throw new FileNotFoundException('File not found');
         }
 
-
         $path = $this->pathHelper->getPathToFile($file);
 
         if (!file_exists($path)) {
@@ -153,8 +150,6 @@ class FileService
 
     public function getLastFiles(int $count): array
     {
-
         return $this->fileRepository->getLastFiles($count);
     }
-
 }

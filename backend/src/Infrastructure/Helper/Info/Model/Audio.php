@@ -4,10 +4,8 @@ namespace FileHosting\Infrastructure\Helper\Info\Model;
 
 use JsonSerializable;
 
-class Audio implements Model, JsonSerializable
+class Audio implements InfoModel, JsonSerializable
 {
-    const INFO = ['dataformat', 'bitrate'];
-    const TAGS = ['artist', 'title', 'album'];
 
     private $bitrate;
     private $artist;
@@ -31,20 +29,63 @@ class Audio implements Model, JsonSerializable
         ];
     }
 
-    public function fill(array $info): Model
+    public function setBitrate($bitrate): self
     {
-        foreach ($info['audio'] as $key => $value) {
-            if (in_array($key, self::INFO)) {
-                $this->$key = $value;
-            }
-        }
-
-        foreach ($info['tags']['id3v2'] as $key => $value) {
-            if (in_array($key, self::TAGS)) {
-                $this->$key = $value[0];
-            }
-        }
+        $this->bitrate = $bitrate;
 
         return $this;
+    }
+
+    public function setArtist($artist): self
+    {
+        $this->artist = $artist;
+
+        return $this;
+    }
+
+    public function setAlbum($album): self
+    {
+        $this->album = $album;
+
+        return $this;
+    }
+
+    public function setTitle($title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function setFormat($format): self
+    {
+        $this->format = $format;
+
+        return $this;
+    }
+
+    public function getBitrate()
+    {
+        return $this->bitrate;
+    }
+
+    public function getArtist()
+    {
+        return $this->artist;
+    }
+
+    public function getAlbum()
+    {
+        return $this->album;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function getFormat()
+    {
+        return $this->format;
     }
 }

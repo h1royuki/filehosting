@@ -4,7 +4,7 @@ namespace FileHosting\Infrastructure\Helper\Info\Model;
 
 use JsonSerializable;
 
-class Video implements Model, JsonSerializable
+class Video implements InfoModel, JsonSerializable
 {
     private $bitrate;
     private $framerate;
@@ -26,13 +26,48 @@ class Video implements Model, JsonSerializable
         ];
     }
 
-    public function fill(array $info): Model
+    public function setBitrate($bitrate): self
     {
-        $this->bitrate = $info['bitrate'];
-        $this->framerate = $info['video']['frame_rate'];
-        $this->width = $info['video']['resolution_x'];
-        $this->height = $info['video']['resolution_y'];
-
+        $this->bitrate = $bitrate;
         return $this;
     }
+
+    public function setFramerate($framerate): self
+    {
+        $this->framerate = $framerate;
+        return $this;
+    }
+
+    public function setWidth($width): self
+    {
+        $this->width = $width;
+        return $this;
+    }
+
+    public function setHeight($height): self
+    {
+        $this->height = $height;
+        return $this;
+    }
+
+    public function getBitrate()
+    {
+        return $this->bitrate;
+    }
+
+    public function getFramerate()
+    {
+        return $this->framerate;
+    }
+
+    public function getWidth()
+    {
+        return $this->width;
+    }
+
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
 }

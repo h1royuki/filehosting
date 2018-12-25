@@ -20,6 +20,8 @@ class FileValidator
 
         if (!$file) {
             $errors[] = 'File not attached';
+
+            throw new ValidationException($errors);
         }
 
         if (empty($file->getClientFilename())) {

@@ -4,15 +4,14 @@ namespace FileHosting\Infrastructure\Helper\Info\Model;
 
 use JsonSerializable;
 
-class Archive implements Model, JsonSerializable
+class Archive implements InfoModel, JsonSerializable
 {
     private $directories = [];
     private $files = [];
-    private $max_items;
 
-    public function __construct(int $max_items)
+    public function jsonSerialize()
     {
-        $this->max_items = $max_items;
+        return $this->getInfo();
     }
 
     public function getInfo(): array
@@ -23,29 +22,29 @@ class Archive implements Model, JsonSerializable
         ];
     }
 
-    public function jsonSerialize()
+    public function addDirectory(string $directory): self
     {
-        return $this->getInfo();
-    }
-
-    public function fill(array $info): Model
-    {
-        $count = 0;
-
-        foreach ($info as $key => $item) {
-            if ($count >= $this->max_items) {
-                break;
-            }
-
-            if (is_array($item)) {
-                $this->directories[] = $key;
-            } else {
-                $this->files[$key] = $item;
-            }
-
-            $count++;
-        }
+        $this->directories[] = $directory;
 
         return $this;
+    }
+
+    public function getDirectories(): array
+    {
+        return $this->directories;
+    }
+
+
+    public function addFile(string $key, string $value): self
+    {
+        $this->files[$key] = $value;
+
+        return $this;
+    }
+
+
+    public function getFiles(): array
+    {
+        return $this->files;
     }
 }

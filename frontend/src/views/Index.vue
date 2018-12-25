@@ -100,6 +100,7 @@
                 if (this.validateFile()) {
                     return;
                 }
+
                 this.sendFile(this.percentsUpdate, this.redirectToFile);
             },
 
@@ -123,6 +124,13 @@
                 this.$http.post('/upload', formData, config)
                     .then((response) => {
                         redirectToFile(response.data);
+                    })
+                    .catch((error) => {
+                        if (error.response.status === 400) {
+                            error.response.data.errors.forEach((error) => {
+                                this.sendError(error);
+                            });
+                        }
                     });
             }
         }

@@ -111,7 +111,6 @@
                     return;
                 }
 
-
                 this.$http
                     .post('/comments', {
                         file_id:  this.file_id,
@@ -122,7 +121,15 @@
                     .then((response) => {
                         this.getComments();
                         this.clearForm();
-                    });
+
+                    }).catch((error) => {
+
+                    if (error.response.status === 400) {
+                        error.response.data.errors.forEach((error) => {
+                            this.sendError(error);
+                        });
+                    }
+                });
             },
 
             clearForm() {

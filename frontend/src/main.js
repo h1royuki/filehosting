@@ -50,14 +50,15 @@ Vue.prototype.$http = axios.create({
 Vue.prototype.$http.interceptors.response.use((response) => {
     return response;
 }, (error) => {
-    let data = error.response.data;
-    if (data) {
-        router.push({
-            name: 'error',
-            params: { error: data }
-        });
+    if (!error.response || error.response.status === 400) {
+        return Promise.reject(error)
     }
-    return error;
+
+    router.push({
+        name: 'error',
+        params: {error: data}
+    });
+    return Promise.reject(error)
 });
 
 Vue.mixin({
@@ -74,10 +75,10 @@ Vue.mixin({
 });
 
 Vue.filter('bitsConvert', function (value) {
-        if(value > 1048576) {
-            return Math.round(value / 1048576) + ' MBits';
-        }
-        return Math.round(value / 1024) + ' KBits';
+    if (value > 1048576) {
+        return Math.round(value / 1048576) + ' MBits';
+    }
+    return Math.round(value / 1024) + ' KBits';
 });
 
 

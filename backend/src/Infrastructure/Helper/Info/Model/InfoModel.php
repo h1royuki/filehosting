@@ -3,9 +3,8 @@
 namespace FileHosting\Infrastructure\Helper\Info\Model;
 
 
-interface Model
+interface InfoModel
 {
     public function getInfo(): array;
 
-    public function fill(array $info): self;
 }

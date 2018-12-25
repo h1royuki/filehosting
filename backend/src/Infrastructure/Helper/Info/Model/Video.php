@@ -29,24 +29,28 @@ class Video implements InfoModel, JsonSerializable
     public function setBitrate($bitrate): self
     {
         $this->bitrate = $bitrate;
+
         return $this;
     }
 
     public function setFramerate($framerate): self
     {
         $this->framerate = $framerate;
+
         return $this;
     }
 
     public function setWidth($width): self
     {
         $this->width = $width;
+
         return $this;
     }
 
     public function setHeight($height): self
     {
         $this->height = $height;
+
         return $this;
     }
 
@@ -69,5 +73,4 @@ class Video implements InfoModel, JsonSerializable
     {
         return $this->height;
     }
-
 }

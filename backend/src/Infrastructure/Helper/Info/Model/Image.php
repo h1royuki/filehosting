@@ -27,18 +27,21 @@ class Image implements InfoModel, JsonSerializable
     public function setWidth($width): self
     {
         $this->width = $width;
+
         return $this;
     }
 
     public function setHeight($height): self
     {
         $this->height = $height;
+
         return $this;
     }
 
     public function setFormat($format): self
     {
         $this->format = $format;
+
         return $this;
     }
 

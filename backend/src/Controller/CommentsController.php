@@ -3,8 +3,8 @@
 namespace FileHosting\Controller;
 
 use DateTime;
-use FileHosting\Infrastructure\Service\CommentsService;
 use FileHosting\Entity\Comment;
+use FileHosting\Infrastructure\Service\CommentsService;
 use FileHosting\Validator\CommentValidator;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -42,7 +42,6 @@ class CommentsController
 
     private function deserialize(Request $request): Comment
     {
-
         $request = $request->getParsedBody();
 
         $file = $request['file_id'];
@@ -57,6 +56,5 @@ class CommentsController
             ->setMessage($message)
             ->setDate($date->getTimestamp())
             ->setParentId($parent_id);
-
     }
 }

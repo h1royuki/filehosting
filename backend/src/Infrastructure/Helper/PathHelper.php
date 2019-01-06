@@ -37,7 +37,7 @@ class PathHelper
 
     public function getDefaultPreviewPath()
     {
-        return $this->getFilePathFromConfig() .
+        return $this->getFilePathFromConfig().
             DIRECTORY_SEPARATOR.
             $this->getDefaultPreviewPathFromConfig();
     }

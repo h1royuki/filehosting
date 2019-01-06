@@ -32,7 +32,7 @@ return [
             'db_name' => getenv('DB_NAME'),
             'db_user' => getenv('DB_USER'),
             'db_pass' => getenv('DB_PASSWORD'),
-            'db_port' => getenv('DB_PORT')
+            'db_port' => getenv('DB_PORT'),
         ],
 
         'sphinx' => [

@@ -18,7 +18,6 @@ class SearchService
 
     public function searchFiles($query)
     {
-
         $query = $this->escapeQuery($query);
 
         $array = $this->searchRepository->getIdsByQuery($query);
@@ -30,7 +29,6 @@ class SearchService
         $ids = $this->getIdsFromArray($array);
 
         $result = $this->fileRepository->getFilesByIds($ids);
-
 
         return $result;
     }

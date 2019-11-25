@@ -7,7 +7,7 @@
     "require": {
         "php": ">=7.1.0",
         "slim/slim": "^4.0",
-        "monolog/monolog": "^1.17",
+        "monolog/monolog": "^2.0",
         "james-heinrich/getid3": "^1.9"
     },
     "require-dev": {
